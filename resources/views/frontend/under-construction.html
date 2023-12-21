@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--under-construction23:53  -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Coming Soon Page</title>
+
+
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+<![endif]-->
+
+<link rel="shortcut icon" href="images/favicon.png" />
+
+<link href="css/comming-soon.css" rel="stylesheet">
+</head>
+<body class="page-under-construction">
+<div class=" construction">
+<h1>Coming Soon...</h1>
+<h4>We are current working on website. We hope to be back online shortly.</h4>
+<a href="under-construction.html#bottom"><i class="arrow-down"></i></a>
+<div class="countdown" id="countDown" data-end-date='2017-04-21 00:00:00'>
+<span class="days">{dn}<small>{dl}</small></span>
+<span class="hours">{hn}<small>{hl}</small></span>
+<span class="min">{mn}<small>{ml}</small></span>
+<span class="sec">{sn}<small>{sl}</small></span>
+</div>
+<div class="newsletter">
+<h3>Get Notified</h3>
+<form data-name="Sign up Form" method="post" class="signup-form" id="signup">
+<input type="email" placeholder="Your email address" class="" name="email">
+<button class="btn btn-orange btn-medium" value="Sign up" type="submit">Signup <i class="lnr lnr-arrow-right"></i></button>
+</form>
+</div>
+<p class="copyright">Copyright 2009 - 2016 Educations. All Rights Reserved</p>
+</div>
+
+<script src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="vendor/countdown/js/jquery.plugin.min.js"></script>
+<script type="text/javascript" src="vendor/countdown/js/jquery.countdown.min.js"></script>
+<script type="text/javascript">
+
+	"use strict";
+	
+	 if( jQuery('#countDown').length) {
+			var dateStr = jQuery( '#countDown').data( 'end-date' );
+			var a=dateStr.split(' ');
+			var d=a[0].split('-');
+			var t=a[1].split(':');
+			var date1 = new Date(d[0],(d[1]-1),d[2],t[0],t[1],t[2]);		
+			jQuery('#countDown').countdown({until: date1, labels: ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'],  labels1: ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'], timezone: 0, layout: jQuery('#countDown').html() });
+	  }
+</script>
+</body>
+
+<!--under-construction23:54  -->
+</html>
