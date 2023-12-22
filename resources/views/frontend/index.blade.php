@@ -38,7 +38,6 @@
 </head>
 
 <body>
-
     <div class="header_meta header_meta_one">
         <div class="container">
             <div class="row">
@@ -54,7 +53,7 @@
                     <ul>
                         <li class="clock"><i class="lnr lnr-clock"></i>Mon - Fri : 8:00 - 12:00</li>
                         <li class="call"><i class="lnr lnr-smartphone"></i>Call Us +731 234 5678</li>
-                        <li><a href="home-1.html#login-form" class="fancybox">Login</a></li>
+                        <li><a href="{{ route('login') }}" class="fancybox">Login</a></li>
                         <li><a href="home-1.html#register-form" class="fancybox">Signup</a></li>
                     </ul>
                 </nav>

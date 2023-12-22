@@ -1,19 +1,19 @@
 @extends('backend.inc.main')
-@section('title', 'All Admin')
+@section('title', 'Trash - All Admin')
 @section('content')
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <h5 class="text-uppercase mb-0 mt-0 page-title">All Admin</h5>
+                        <h5 class="text-uppercase mb-0 mt-0 page-title">Admin Trash</h5>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                         <ul class="breadcrumb float-right p-0 mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i>
                                     Home</a>
                             </li>
-                            <li class="breadcrumb-item"><span>All Admin</span></li>
+                            <li class="breadcrumb-item"><span>Admin Trash</span></li>
                         </ul>
                     </div>
                 </div>
@@ -22,13 +22,9 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header d-flex justify-content-end align-items-center">
                                 <div>
-                                    <a target="_blank" href="{{ route('admin.allexport.admin') }}" class="btn btn-primary mr-2"><i class="fa fa-file-excel"></i> Exel Export</a>
-                                    <a target="_blank" href="{{ route('admin.pdfexport.admin') }}" class="btn btn-info"><i class="fa fa-file-pdf"></i> PDF Export</a>
-                                </div>
-                                <div>
-                                    <a href="{{ route('admin.trash.admin') }}" class="btn btn-danger mr-2"><i class="fa fa-trash"></i> Trash</a>
+                                    <a href="{{ route('admin.all.admin') }}" class="btn btn-success mr-2">Back</a>
                                 </div>
 
                             </div>
@@ -120,18 +116,15 @@
                                                             {{ $admin->parmanent_address }}</p>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.admin', [$admin->id]) }}"
-                                                            class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                                        <a target="_blank"
-                                                            href="{{ route('admin.preview.admin', [$admin->id]) }}"
-                                                            class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                                        <a
+                                                            href="{{ route('admin.restore.admin', [$admin->id]) }}"
+                                                            class="btn btn-sm btn-success"><i class="fa fa-undo"></i></a>
 
-                                                
-                                                                <a
-                                                            href="@if ($admin->id == Auth::user()->id) javascript:void() @else {{ route('admin.delete.admin', [$admin->id]) }} @endif"
-                                                            class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
-
-
+                                                        <button
+                                                            @if ($admin->id != Auth::user()->id) onclick="deletePrompt({{ $admin->id }})" data-toggle="modal"
+                                                        data-target="#deletePrompt" @else disabled @endif
+                                                            class="btn btn-sm btn-danger"><i
+                                                                class="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -149,5 +142,33 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="deletePrompt" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <h4>Are you sure to delete this admin?</h4>
+                        <p class="mb-0">Note: If you delete this account so you can't retrive or restore this data again.
+                            so Be Careful</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                        <a href="" id="user_id" class="btn btn-danger">Confirm</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function deletePrompt(id) {
+            $("#user_id").attr('href',"/admin/delete-admin/"+id);
+        }
+    </script>
     </div>
 @endsection

@@ -238,10 +238,10 @@ class AdminController extends Controller
         } else {
             if ($filter != "") {
                 if ($filter == 'a2z') {
-                    $admins = User::where('role', 'admin')->where('fname', "LIKE", "%$search%")->orWhere('lname', "LIKE", "%$search%")->orderBy('fname', 'asc')->paginate(10);
+                    $admins = User::where('role', 'admin')->orderBy('fname', 'asc')->paginate(10);
                 }
                 if ($filter == 'z2a') {
-                    $admins = User::where('role', 'admin')->where('fname', "LIKE", "%$search%")->orWhere('lname', "LIKE", "%$search%")->orderBy('fname', 'desc')->paginate(10);
+                    $admins = User::where('role', 'admin')->orderBy('fname', 'desc')->paginate(10);
                 }
                 if ($filter == 'active') {
                     $admins = User::where('role', 'admin')->where('status', '=', 1)->orderBy('fname','asc')->paginate(10);
@@ -266,20 +266,18 @@ class AdminController extends Controller
         return view('backend.edit-admin', compact('admin'));
     }
 
-    public function deleteAdmin(Request $request)
+    public function deleteAdmin($id)
     {
-        $request->validate([
-            'id' => 'required',
-        ]);
+     
         // Delete Profile Picture
-        $dbimage = User::find($request->id)->photo;
+        $dbimage = User::onlyTrashed()->find($id)->photo;
         if ($dbimage != "") {
             $path = public_path('/upload/users') . '/' . $dbimage;
             if (file_exists($path)) {
                 unlink($path);
             }
         }
-        User::destroy($request->id);
+        User::where('id',$id)->forceDelete();
         return redirect()->back()->withIcon('success')->withMessege('Admin Delete Successfull!');
     }
     public function addAdmin()
@@ -307,6 +305,7 @@ class AdminController extends Controller
             $request->file('photo')->move(public_path('/upload/users/'), $imagename);
         }
         DB::table('users')->insert([
+            'name' => $request->fname.' '.$request->lname,
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
@@ -333,5 +332,52 @@ class AdminController extends Controller
         $pdf = Pdf::loadView('backend.exports.pdf-admin-exports', array('admins' => $admins))->setPaper('a4', 'landscape');
         return $pdf->download('All-Admin_' . time() . '.pdf');
 
+    }
+
+
+    public function adminTrash(Request $request)
+    {
+        $search = $request->search;
+        $filter = $request->filter;
+
+        if ($search != "") {
+            if ($filter != "") {
+                if ($filter == 'a2z') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->where('fname', "LIKE", "%$search%")->orWhere('lname', "LIKE", "%$search%")->orderBy('fname', 'asc')->paginate(10);
+                }
+                if ($filter == 'z2a') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->where('fname', "LIKE", "%$search%")->orWhere('lname', "LIKE", "%$search%")->orderBy('fname', 'desc')->paginate(10);
+                }
+                if ($filter == 'active') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->where('status', '=', 1)->paginate(10);
+                }
+            } else {
+                $admins = User::onlyTrashed()->where('role', 'admin')->where('fname', "LIKE", "%$search%")->orWhere('lname', "LIKE", "%$search%")->orderBy('fname', 'asc')->paginate(10);
+            }
+        } else {
+            if ($filter != "") {
+                if ($filter == 'a2z') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->orderBy('fname', 'asc')->paginate(10);
+                }
+                if ($filter == 'z2a') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->orderBy('fname', 'desc')->paginate(10);
+                }
+                if ($filter == 'active') {
+                    $admins = User::onlyTrashed()->where('role', 'admin')->where('status', '=', 1)->orderBy('fname','asc')->paginate(10);
+                }
+            } else {
+                $admins = User::onlyTrashed()->where('role', 'admin')->orderBy('fname', 'asc')->paginate(10);
+            }
+        }
+
+        return view('backend.admin-trash', compact('admins', 'search', 'filter'));
+    }
+
+    public function adminRestore($id){
+        $admin = User::withTrashed()->find($id);
+        if(!is_null($admin)){
+            $admin->restore();
+        }
+        return redirect()->back()->withIcon('success')->withMessege('Admin Restored Successfully!');
     }
 }

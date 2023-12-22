@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
+            $table->string('name')->nullable();
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
             $table->string('father_name')->nullable();
@@ -46,6 +47,7 @@ return new class extends Migration
             $table->longText('about_me')->nullable();
             $table->date('joining_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -53,7 +55,9 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
+        {Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes();
+        });
         Schema::dropIfExists('users');
     }
 };

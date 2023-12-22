@@ -30,7 +30,7 @@ Route::prefix('/admin')->middleware('auth','rolecheck:admin')->group(function(){
     Route::post('/edit-profile',[AdminController::class,'updateAdmin'])->name('admin.editPost');
     Route::get('/settings',[AdminController::class,'settings'])->name('admin.settings');
     Route::post('/change-password',[AdminController::class,'changePassword'])->name('admin.change.password');
-    Route::post('/account-delete',[AdminController::class,'deleteAccount'])->name('admin.account.delete');
+    Route::get('/account-delete',[AdminController::class,'deleteAccount'])->name('admin.account.delete');
     Route::get('/forget-password',[AdminController::class,'forgetPassword'])->name('admin.forget.password');
     Route::post('/forget-password',[AdminController::class,'resetPassword'])->name('admin.reset.password');
     Route::get('/verify',[AdminController::class,'verifyEmail'])->name('admin.verify.email');
@@ -42,7 +42,7 @@ Route::prefix('/admin')->middleware('auth','rolecheck:admin')->group(function(){
     
     Route::get('/preview-admin/{id}',[AdminController::class,'previewAdmin'])->name('admin.preview.admin');
     Route::get('/edit-admin/{id}',[AdminController::class,'editAdmin'])->name('admin.edit.admin');
-    Route::post('/delete-admin',[AdminController::class,'deleteAdmin'])->name('admin.delete.admin');
+    Route::get('/delete-admin/{id}',[AdminController::class,'deleteAdmin'])->name('admin.delete.admin');
     Route::get('/add-admin',[AdminController::class,'addAdmin'])->name('admin.add.admin');
     Route::post('/add-admin',[AdminController::class,'insertAdmin'])->name('admin.insert.admin');
 
@@ -50,4 +50,8 @@ Route::prefix('/admin')->middleware('auth','rolecheck:admin')->group(function(){
     Route::get('/export-all-admin-exel',[AdminController::class,'exportAllAdminexel'])->name('admin.allexport.admin');
     Route::get('/export-all-admin-pdf',[AdminController::class,'exportPdfAdmins'])->name('admin.pdfexport.admin');
 
+
+    // Trash
+    Route::get('/admin-trash',[AdminController::class,'adminTrash'])->name('admin.trash.admin');
+    Route::get('/admin-restore/{id}',[AdminController::class,'adminRestore'])->name('admin.restore.admin');
 });

@@ -23,15 +23,40 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $fname = fake()->firstName();
+        $lname = fake()->lastName();
         return [
-            'fname' => fake()->name(),
-            'lname' => 'Hosen',
+            'user_id' => fake()->randomElement(['AD','ST','TE','GA']).'-'.fake()->numberBetween(1,10520),
+            'name' => $fname.' '.$lname,
+            'fname' => fake()->firstName(),
+            'lname' => fake()->lastName(),
+            'father_name' => fake()->name(),
+            'mother_name' => fake()->name(),
+            'parent_phone' => fake()->phoneNumber(),
+            'parent_phone' => fake()->safeEmail(),
+            'emergency_contact' => fake()->phoneNumber(),
+            'dob' => fake()->date('Y-m-d'),
+            'roll' => fake()->numberBetween(1,10000),
+            'section' => fake()->randomElement(['A','B','C','D','E','F']),
+            'shift' => fake()->randomElement(['Day','Morning']),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'user_id' => 'AD-'.rand(100,1000),
+            'email_verified_at' => fake()->date('Y-m-d H:i:s'),
+            'password' => Hash::make('12345678'),
+            'remember_token' => md5(uniqid()),
             'phone' => fake()->phoneNumber(),
-            'role' => 'admin',
-            'password' => Hash::make(12345678),
+            'gender' => fake()->randomElement(['Male','Female']),
+            'religion' => fake()->randomElement(['Islam','Hindu','Buddah','Christian']),
+            'nationality' => fake()->country(),
+            'current_address' => fake()->address(),
+            'parmanent_address' => fake()->address(),
+            'blood_group' => fake()->bloodGroup(),
+            'subject' => fake()->randomElement(['Bangla','English','Math','ICT','CSE']),
+            'status' => fake()->numberBetween(0,1),
+            'role' => fake()->randomElement(['admin','teacher','student','gurdian']),
+            'experience' => fake()->text(),
+            'qualification' => fake()->realText(),
+            'about_me' => fake()->realText(200),
+            'joining_date' => fake()->date('Y-m-d'),
         ];
     }
 
