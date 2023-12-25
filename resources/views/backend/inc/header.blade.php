@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +10,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend') }}/assets/img/favicon.png">
 
-	<link href="../../../../css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="{{ asset('backend') }}/assets/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
 	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/bootstrap.min.css">
 
@@ -24,8 +26,9 @@
 	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/style.css">
 	<script src="{{ asset('backend') }}/assets/js/jquery-3.6.0.min.js"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/toastr.min.css">
+	<script src="{{ asset('backend') }}/assets/js/toastr.min.js"></script>
+
 
 
 	<!--[if lt IE 9]>

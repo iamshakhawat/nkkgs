@@ -21,7 +21,6 @@
 @if (Session::has('icon') || Session::has('messege'))
     <script>
         toastr["{{ Session::get('icon') }}"]("{{ Session::get('messege') }}");
-        
     </script>
 @endif
 
@@ -43,6 +42,9 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+
+
+    
 </script>
 
 </body>

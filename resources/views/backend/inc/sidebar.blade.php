@@ -17,28 +17,25 @@
                     <a href="#"><img src="{{ asset('backend') }}/assets/img/sidebar/icon-10.png" alt="icon"> <span> Admins</span>
                         <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
-                        <li><a href="{{ route('admin.all.admin') }}"><span>All Admin</span></a></li>
-                        <li><a href="{{ route('admin.add.admin') }}"><span>Add Admin</span></a></li>
+                        <li><a href="{{ route('admin.all.admin') }}"><span><i class="fa fa-users"></i> All</span></a></li>
+                        <li><a href="{{ route('admin.add.admin') }}"><span><i class="fa fa-plus"></i> Add</span></a></li>
+                        <li><a href="{{ route('admin.trash.admin') }}"><span><i class="fa fa-trash"></i> Trash</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="#"><img src="{{ asset('backend') }}/assets/img/sidebar/icon-2.png" alt="icon"> <span> Teachers</span>
                         <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
-                        <li><a href="all-teachers.html"><span>All Teachers</span></a></li>
-                        <li><a href="add-teacher.html"><span>Add Teacher</span></a></li>
-                        <li><a href="edit-teacher.html"><span>Edit Teacher</span></a></li>
-                        <li><a href="about-teacher.html"><span>About Teacher</span></a></li>
+                        <li><a href="{{ route('admin.all.teacher') }}"><span>All Teachers</span></a></li>
+                        <li><a href="{{ route('admin.add.teacher') }}"><span>Add Teacher</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="#"><img src="{{ asset('backend') }}/assets/img/sidebar/icon-3.png" alt="icon"> <span> Students</span>
                         <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
-                        <li><a href="all-students.html"><span>All Students</span></a></li>
+                        <li><a href="{{ route('admin.all.student') }}"><span>All Students</span></a></li>
                         <li><a href="add-student.html"><span>Add Student</span></a></li>
-                        <li><a href="edit-student.html"><span>Edit Student</span></a></li>
-                        <li><a href="about-student.html"><span>ABout student</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">

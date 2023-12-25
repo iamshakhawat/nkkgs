@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use App\Models\User;
+use App\Models\Subject;
 use App\Mail\ForgetPassword;
 use Illuminate\Http\Request;
 use App\Exports\AllAdminExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\AllTeacherExport;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -244,7 +247,7 @@ class AdminController extends Controller
                     $admins = User::where('role', 'admin')->orderBy('fname', 'desc')->paginate(10);
                 }
                 if ($filter == 'active') {
-                    $admins = User::where('role', 'admin')->where('status', '=', 1)->orderBy('fname','asc')->paginate(10);
+                    $admins = User::where('role', 'admin')->where('status', '=', 1)->orderBy('fname', 'asc')->paginate(10);
                 }
             } else {
                 $admins = User::where('role', 'admin')->orderBy('fname', 'asc')->paginate(10);
@@ -268,7 +271,7 @@ class AdminController extends Controller
 
     public function deleteAdmin($id)
     {
-     
+
         // Delete Profile Picture
         $dbimage = User::onlyTrashed()->find($id)->photo;
         if ($dbimage != "") {
@@ -277,7 +280,7 @@ class AdminController extends Controller
                 unlink($path);
             }
         }
-        User::where('id',$id)->forceDelete();
+        User::where('id', $id)->forceDelete();
         return redirect()->back()->withIcon('success')->withMessege('Admin Delete Successfull!');
     }
     public function addAdmin()
@@ -305,7 +308,7 @@ class AdminController extends Controller
             $request->file('photo')->move(public_path('/upload/users/'), $imagename);
         }
         DB::table('users')->insert([
-            'name' => $request->fname.' '.$request->lname,
+            'name' => $request->fname . ' ' . $request->lname,
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
@@ -326,12 +329,16 @@ class AdminController extends Controller
         return Excel::download(new AllAdminExport, 'All-Admin_' . time() . '.xlsx');
     }
 
+    public function exportAllTeacherexel()
+    {
+        return Excel::download(new AllTeacherExport, 'All-teacher-' . time() . '.xlsx');
+    }
+
     public function exportPdfAdmins()
     {
         $admins = User::where('role', '=', 'admin')->get();
         $pdf = Pdf::loadView('backend.exports.pdf-admin-exports', array('admins' => $admins))->setPaper('a4', 'landscape');
         return $pdf->download('All-Admin_' . time() . '.pdf');
-
     }
 
 
@@ -363,7 +370,7 @@ class AdminController extends Controller
                     $admins = User::onlyTrashed()->where('role', 'admin')->orderBy('fname', 'desc')->paginate(10);
                 }
                 if ($filter == 'active') {
-                    $admins = User::onlyTrashed()->where('role', 'admin')->where('status', '=', 1)->orderBy('fname','asc')->paginate(10);
+                    $admins = User::onlyTrashed()->where('role', 'admin')->where('status', '=', 1)->orderBy('fname', 'asc')->paginate(10);
                 }
             } else {
                 $admins = User::onlyTrashed()->where('role', 'admin')->orderBy('fname', 'asc')->paginate(10);
@@ -373,11 +380,246 @@ class AdminController extends Controller
         return view('backend.admin-trash', compact('admins', 'search', 'filter'));
     }
 
-    public function adminRestore($id){
+    public function adminRestore($id)
+    {
         $admin = User::withTrashed()->find($id);
-        if(!is_null($admin)){
+        if (!is_null($admin)) {
             $admin->restore();
         }
         return redirect()->back()->withIcon('success')->withMessege('Admin Restored Successfully!');
     }
+
+    public function allTeacher(Request $request)
+    {
+        $id = $request->id;
+        $name = $request->name;
+        $searchSubject = $request->subject;
+
+        if ($id != "") {
+            $teachers = User::where('role', 'teacher')->where('user_id', 'LIKE', "%$id%")->paginate(20);
+        }
+        if ($name != "") {
+            $teachers = User::where('role', 'teacher')->where('name', "LIKE", "%$name%")->paginate(20);
+        }
+        if ($searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->where('subject', '=', $searchSubject)->paginate(20);
+        }
+        if ($id != "" && $name != "") {
+            $teachers = User::where('role', 'teacher')->orWhere('user_id', $id)->where('name', "LIKE", "%$name%")->paginate(20);
+        }
+        if ($id != "" && $searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->orWhere('user_id', $id)->where('subject', '=', $searchSubject)->paginate(20);
+        }
+        if ($name != "" && $searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->where('name', "LIKE", "%$name%")->where('subject', '=', $searchSubject)->paginate(20);
+        }
+
+        if ($id == '' && $name == '' && $searchSubject == '') {
+            $teachers = User::where('role', 'teacher')->paginate(20);
+        }
+        $subjects = Subject::all();
+        return view('backend.all-teachers', compact('teachers', 'subjects', 'id', 'searchSubject', 'name'));
+    }
+
+    public function allTeacherList(Request $request)
+    {
+        $id = $request->id;
+        $name = $request->name;
+        $searchSubject = $request->subject;
+
+        if ($id != "") {
+            $teachers = User::where('role', 'teacher')->where('user_id', 'LIKE', "%$id%")->paginate(20);
+        }
+        if ($name != "") {
+            $teachers = User::where('role', 'teacher')->where('name', "LIKE", "%$name%")->paginate(20);
+        }
+        if ($searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->where('subject', '=', $searchSubject)->paginate(20);
+        }
+        if ($id != "" && $name != "") {
+            $teachers = User::where('role', 'teacher')->orWhere('user_id', $id)->where('name', "LIKE", "%$name%")->paginate(20);
+        }
+        if ($id != "" && $searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->orWhere('user_id', $id)->where('subject', '=', $searchSubject)->paginate(20);
+        }
+        if ($name != "" && $searchSubject != "") {
+            $teachers = User::where('role', 'teacher')->where('name', "LIKE", "%$name%")->where('subject', '=', $searchSubject)->paginate(20);
+        }
+
+        if ($id == '' && $name == '' && $searchSubject == '') {
+            $teachers = User::where('role', 'teacher')->paginate(20);
+        }
+        $subjects = Subject::all();
+        return view('backend.all-teachers-list', compact('teachers', 'subjects', 'id', 'searchSubject', 'name'));
+    }
+
+    public function singleTeacher($id)
+    {
+        $teacher = User::find($id);
+        return view('backend.teacher-profile', compact('teacher'));
+    }
+    public function editTeacher($id)
+    {
+        $teacher = User::find($id);
+        $subjects = Subject::all();
+        return view('backend.edit-teacher', compact('teacher', 'subjects'));
+    }
+
+    public function editTeacherPost(Request $request)
+    {
+        $request->validate([
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $request->id,
+            'phone' => 'required|numeric|max:99999999999',
+            'user_id' => 'required|string',
+            'photo' => 'nullable|image|mimes:png,jpg,jpeg',
+            'id' => 'required',
+            'subject' => 'required',
+        ]);
+
+        DB::table('users')->where('id', $request->id)->update([
+            'name' => $request->fname . ' ' . $request->lname,
+            'fname' => $request->fname,
+            'user_id' => $request->user_id,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'lname' => $request->lname,
+            'joining_date' => $request->joining_date,
+            'phone' => $request->phone,
+            'nationality' => $request->nationality,
+            'blood_group' => $request->blood,
+            'subject' => $request->subject,
+            'current_address' => $request->current_address,
+            'parmanent_address' => $request->parmanent_address,
+            'about_me' => $request->about_me,
+            'qualification' => $request->qualification,
+            'experience' => $request->experience,
+        ]);
+
+
+        if ($request->file('photo')) {
+            $dbimage = User::find($request->id)->photo;
+            if ($dbimage != "") {
+                $path = public_path('/upload/users') . '/' . $dbimage;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            $imagename = $request->fname . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->move(public_path('/upload/users/'), $imagename);
+            DB::table('users')->where('id', $request->id)->update([
+                'photo' => $imagename
+            ]);
+        }
+        return redirect()->back()->withIcon('success')->withMessege('Profile Updated Successfully!');
+    }
+
+    public function addTeacher()
+    {
+        $subjects = Subject::all();
+        return view('backend.add-teacher', compact('subjects'));
+    }
+
+    public function addTeacherPost(Request $request)
+    {
+        $request->validate([
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|numeric|max:99999999999',
+            'user_id' => 'required|string',
+            'photo' => 'nullable|image|mimes:png,jpg,jpeg',
+            'subject' => 'required',
+            'password' => 'required|same:confirm_password|min:6',
+            'confirm_password' => 'required|min:6',
+        ]);
+
+        $imagename = null;
+
+        if ($request->file('photo')) {
+            $imagename = $request->fname . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->move(public_path('/upload/users/'), $imagename);
+        }
+
+        DB::table('users')->insert([
+            'name' => $request->fname . ' ' . $request->lname,
+            'fname' => $request->fname,
+            'user_id' => $request->user_id,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'lname' => $request->lname,
+            'joining_date' => $request->joining_date,
+            'phone' => $request->phone,
+            'nationality' => $request->nationality,
+            'blood_group' => $request->blood,
+            'subject' => $request->subject,
+            'current_address' => $request->current_address,
+            'parmanent_address' => $request->parmanent_address,
+            'about_me' => $request->about_me,
+            'qualification' => $request->qualification,
+            'experience' => $request->experience,
+            'role' => 'teacher',
+            'password' => Hash::make($request->password),
+            'photo' => $imagename
+        ]);
+
+
+
+        return redirect()->back()->withIcon('success')->withMessege('Teacher Add Successfully!');
+    }
+
+    public function deleteTeacher(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+        ]);
+
+        // Delete Profile Picture
+        $dbimage = User::find($request->user_id)->photo;
+        if ($dbimage != "") {
+            $path = public_path('/upload/users') . '/' . $dbimage;
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
+        User::destroy($request->user_id);
+        return redirect()->back()->withIcon('success')->withMessege('Teacher Delete Successfull!');
+    }
+
+
+  
+    public function exportAllTeacher()
+    {
+        $teachers = User::where('role', '=', 'teacher')->get();
+        $pdf = Pdf::loadView('backend.exports.pdf-teacher-exports', array('teachers' => $teachers))->setPaper('a4', 'landscape');
+        return $pdf->download('All-Teacher' . time() . '.pdf');
+    }
+
+
+    // Student 
+    public function studentProfile($id)
+    {
+        $student = User::find($id);
+        return view('backend.student-profile', compact('student'));
+    }
+
+    public function allStudent(Request $request)
+    {
+        $shift = $request->shift;
+        $class = $request->class;
+        $section = $request->section;
+        $roll = $request->roll;
+        $name = $request->name;
+
+
+        
+
+        $students = User::where('role','student')->paginate(20);
+        return view('backend.all-students', compact('students', 'shift', 'class', 'section', 'roll','name'));
+    }
+
+
 }

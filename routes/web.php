@@ -49,9 +49,30 @@ Route::prefix('/admin')->middleware('auth','rolecheck:admin')->group(function(){
     // Export
     Route::get('/export-all-admin-exel',[AdminController::class,'exportAllAdminexel'])->name('admin.allexport.admin');
     Route::get('/export-all-admin-pdf',[AdminController::class,'exportPdfAdmins'])->name('admin.pdfexport.admin');
+    Route::get('/export-all-teacher-pdf',[AdminController::class,'exportAllTeacher'])->name('admin.export.teacher.pdf');
+    Route::get('/export-all-teacher-exel',[AdminController::class,'exportAllTeacherexel'])->name('admin.allexport.teacher');
 
-
+    
     // Trash
     Route::get('/admin-trash',[AdminController::class,'adminTrash'])->name('admin.trash.admin');
     Route::get('/admin-restore/{id}',[AdminController::class,'adminRestore'])->name('admin.restore.admin');
+
+    // Teacher 
+    Route::get('/all-teacher',[AdminController::class,'allTeacher'])->name('admin.all.teacher');
+    Route::get('/all-teacher-list',[AdminController::class,'allTeacherList'])->name('admin.all.teacher.list');
+
+    Route::get('/teacher/{id}',[AdminController::class,'singleTeacher'])->name('admin.profile.teacher');
+
+    Route::get('/teacher/edit/{id}',[AdminController::class,'editTeacher'])->name('admin.edit.teacher');
+    Route::post('/teacher/edit',[AdminController::class,'editTeacherPost'])->name('admin.editPost.teacher');
+    Route::get('/add-teacher',[AdminController::class,'addTeacher'])->name('admin.add.teacher');
+    Route::post('/add-teacher',[AdminController::class,'addTeacherPost'])->name('admin.addPost.teacher');
+
+    Route::post('/delete-teacher',[AdminController::class,'deleteTeacher'])->name('admin.delete.teacher');
+
+    // Toggle BTN
+    // Route::post('/toggle-sidebar',[AdminController::class,'toggleSidebar'])->name('admin.toggle.sidebar');
+    Route::get('/student/{id}',[AdminController::class,'studentProfile'])->name('admin.student.profile');
+    Route::get('/all-student',[AdminController::class,'allStudent'])->name('admin.all.student');
+    
 });

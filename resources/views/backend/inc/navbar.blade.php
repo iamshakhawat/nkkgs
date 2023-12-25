@@ -1,9 +1,9 @@
 
 <div class="header">
     <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fas fa-bars" aria-hidden="true"></i></a>
-    <a id="toggle_btn" class="float-left" href="javascript:void(0);">
+    <button id="toggle_btn" class="float-left"   style="outline: none;background:none;border:none">
         <img src="{{ asset('backend') }}/assets/img/sidebar/icon-21.png" alt="">
-    </a>
+    </button>
 
     <ul class="nav float-left">
         <li>
