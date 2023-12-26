@@ -45,9 +45,6 @@
         .rounded-circle {
             border-radius: 50%;
         }
-        .rounded-circle{
-            width: 30%;
-        }
         .info{
             width: 70%;
         }
@@ -82,13 +79,12 @@
                     <td>
                         <div>
                             @if ($teacher->photo == '')
-                                <img class="rounded-circle" height="30" width="50"
+                                <img class="rounded-circle" height="50" 
                                     src="{{ public_path('/') }}/backend/assets/img/user.jpg" alt="Card image">
                             @else
-                                <img class="rounded-circle " height="30" width="50"
+                                <img class="rounded-circle " height="50" 
                                     src="{{ public_path('/') }}/upload/users/{{ $teacher->photo }}" alt="Card image">
                             @endif
-                        </div>
                         </div>
                     </td>
                     <td>

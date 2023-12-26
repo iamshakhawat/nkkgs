@@ -19,12 +19,12 @@
                 </div>
             </div>
             <div class="row">
-                {{-- <div class="col-sm-4 col-12 mb-3">
-                    <a href="{{ route('admin.export.teacher.pdf') }}" class="btn btn-danger"> <i class="fa fa-file-pdf"></i>
+                <div class="col-sm-4 col-12 mb-3">
+                    <a href="{{ route('export.all.student.pdf') }}" class="btn btn-danger"> <i class="fa fa-file-pdf"></i>
                         Export PDF</a>
-                    <a href="{{ route('admin.allexport.teacher') }}" class="btn btn-success"> <i
+                    <a href="{{ route('export.all.student.excel') }}" class="btn btn-success"> <i
                             class="fa fa-file-excel"></i> Export Excel</a>
-                </div> --}}
+                </div>
                 <div class="col-sm-8 col-12 text-right add-btn-col">
                     <a href="{{ route('admin.add.teacher') }}" class="btn btn-primary btn-rounded float-right"><i
                             class="fas fa-plus"></i>

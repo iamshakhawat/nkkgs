@@ -21,42 +21,47 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="dash-widget dash-widget5">
-                    <span class="float-left"><img src="assets/img/dash/dash-1.png" alt="" width="80"></span>
-                    <div class="dash-widget-info text-right">
-                        <span>Students</span>
-                        <h3>60,000</h3>
-                    </div>
-                </div>
+                <a href="{{ route('admin.all.student') }}">
+                    <div class="dash-widget dash-widget5">
+                        <span class="float-left"><img src="{{ asset('backend') }}/assets/img/dash/dash-1.png" alt="" width="80"></span>
+                        <div class="dash-widget-info text-right">
+                            <span>Students</span>
+                            <h3>{{ $students }}</h3>
+                        </div>
+                    </div></a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="dash-widget dash-widget5">
-                    <div class="dash-widget-info text-left d-inline-block">
-                        <span>Teachers</span>
-                        <h3>12,000</h3>
+                <a href="{{ route('admin.all.teacher.list') }}">
+                    <div class="dash-widget dash-widget5">
+                        <div class="dash-widget-info text-left d-inline-block">
+                            <span>Teachers</span>
+                            <h3>{{ $teachers }}</h3>
+                        </div>
+                        <span class="float-right"><img src="{{ asset('backend') }}/assets/img/dash/dash-2.png" width="80"
+                                alt=""></span>
                     </div>
-                    <span class="float-right"><img src="assets/img/dash/dash-2.png" width="80"
-                            alt=""></span>
-                </div>
+                </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+               <a href="#">
                 <div class="dash-widget dash-widget5">
-                    <span class="float-left"><img src="assets/img/dash/dash-3.png" alt="" width="80"></span>
+                    <span class="float-left"><img src="{{ asset('backend') }}/assets/img/dash/dash-3.png" alt="" width="80"></span>
                     <div class="dash-widget-info text-right">
                         <span>Parents</span>
-                        <h3>20,000</h3>
+                        <h3>{{ $gurdians }}</h3>
                     </div>
                 </div>
+               </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="dash-widget dash-widget5">
+                <a href="{{ route('admin.all.admin') }}"><div class="dash-widget dash-widget5">
                     <div class="dash-widget-info d-inline-block text-left">
-                        <span>Total Earnings</span>
-                        <h3>$20,000</h3>
+                        <span>Total Admins</span>
+                        <h3>{{ $admins }}</h3>
                     </div>
-                    <span class="float-right"><img src="assets/img/dash/dash-4.png" alt=""
+                    <span class="float-right"><img src="{{ asset('backend') }}/assets/img/dash/admin.png" alt=""
                             width="80"></span>
-                </div>
+                </div></a>
             </div>
         </div>
         <div class="row">
@@ -417,9 +422,9 @@
                             </div>
                             <div class="col-sm-6 text-sm-right">
                                 <div class=" mt-sm-0 mt-2">
-                                    <button class="btn btn-outline-primary mr-2"><img src="assets/img/excel.png"
+                                    <button class="btn btn-outline-primary mr-2"><img src="{{ asset('backend') }}/assets/img/excel.png"
                                             alt=""><span class="ml-2">Excel</span></button>
-                                    <button class="btn btn-outline-danger mr-2"><img src="assets/img/pdf.png"
+                                    <button class="btn btn-outline-danger mr-2"><img src="{{ asset('backend') }}/assets/img/pdf.png"
                                             alt="" height="18"><span class="ml-2">PDF</span></button>
                                     <button class="btn btn-light" type="button" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false"><i
@@ -453,7 +458,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-1.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-1.jpg" alt=""></a><a
                                                     href="profile.html">Parker <span></span></a></h2>
                                         </td>
                                         <td>ST-0d001</td>
@@ -474,7 +479,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-2.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-2.jpg" alt=""></a><a
                                                     href="profile.html">Smith <span></span></a></h2>
                                         </td>
                                         <td>ST-0d002</td>
@@ -495,7 +500,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-3.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-3.jpg" alt=""></a><a
                                                     href="profile.html">Hensley<span></span></a></h2>
                                         </td>
                                         <td>ST-0d003</td>
@@ -516,7 +521,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-4.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-4.jpg" alt=""></a><a
                                                     href="profile.html">Friesen<span></span></a></h2>
                                         </td>
                                         <td>ST-0d004</td>
@@ -537,7 +542,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-5.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-5.jpg" alt=""></a><a
                                                     href="profile.html">Jackson<span></span></a></h2>
                                         </td>
                                         <td>ST-0d005</td>
@@ -558,7 +563,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-6.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-6.jpg" alt=""></a><a
                                                     href="profile.html">Mason<span></span></a></h2>
                                         </td>
                                         <td>ST-0d006</td>
@@ -579,7 +584,7 @@
                                     <tr>
                                         <td>
                                             <h2><a href="profile.html" class="avatar text-white"><img
-                                                        src="assets/img/profile/img-7.jpg" alt=""></a><a
+                                                        src="{{ asset('backend') }}/assets/img/profile/img-7.jpg" alt=""></a><a
                                                     href="profile.html">Garrett <span></span></a></h2>
                                         </td>
                                         <td>ST-0d007</td>
@@ -616,9 +621,9 @@
                             </div>
                             <div class="col-sm-6 text-sm-right">
                                 <div class=" mt-sm-0 mt-2">
-                                    <button class="btn btn-outline-primary mr-2"><img src="assets/img/excel.png"
+                                    <button class="btn btn-outline-primary mr-2"><img src="{{ asset('backend') }}/assets/img/excel.png"
                                             alt=""><span class="ml-2">Excel</span></button>
-                                    <button class="btn btn-outline-danger mr-2"><img src="assets/img/pdf.png"
+                                    <button class="btn btn-outline-danger mr-2"><img src="{{ asset('backend') }}/assets/img/pdf.png"
                                             alt="" height="18"><span class="ml-2">PDF</span></button>
                                     <button class="btn btn-light" type="button" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false"><i
@@ -655,7 +660,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-1.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-1.jpg"
                                                                 alt=""></a><a href="profile.html">Parker
                                                             <span></span></a></h2>
                                                 </td>
@@ -664,7 +669,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>9946 Baker Rd. Marysville, </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -679,7 +684,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-2.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-2.jpg"
                                                                 alt=""></a><a href="profile.html">Smith
                                                             <span></span></a></h2>
                                                 </td>
@@ -688,7 +693,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>193 S. Harrison Drive </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -703,7 +708,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-3.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-3.jpg"
                                                                 alt=""></a><a
                                                             href="profile.html">Hensley<span></span></a></h2>
                                                 </td>
@@ -712,7 +717,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>8949 Golf St. Palm Coast </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -727,7 +732,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-4.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-4.jpg"
                                                                 alt=""></a><a
                                                             href="profile.html">Friesen<span></span></a></h2>
                                                 </td>
@@ -736,7 +741,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>23 Ohio Court Alexandria </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -751,7 +756,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-5.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-5.jpg"
                                                                 alt=""></a><a
                                                             href="profile.html">Jackson<span></span></a></h2>
                                                 </td>
@@ -760,7 +765,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>338 North Cleveland Rd </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -775,7 +780,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-6.jpg"
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-6.jpg"
                                                                 alt=""></a><a
                                                             href="profile.html">Mason<span></span></a></h2>
                                                 </td>
@@ -784,7 +789,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>7909 W. Sunnyslope St. </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>
@@ -799,7 +804,7 @@
                                             <tr>
                                                 <td>
                                                     <h2><a href="profile.html" class="avatar text-white"><img
-                                                                src="assets/img/profile/img-7.jpg" alt=""></a>
+                                                                src="{{ asset('backend') }}/assets/img/profile/img-7.jpg" alt=""></a>
                                                         <a href="profile.html">Garrett <span></span></a>
                                                     </h2>
                                                 </td>
@@ -808,7 +813,7 @@
                                                 <td>973-584-58700</td>
                                                 <td>7361 Dunbar Street </td>
                                                 <td>20/1/2021</td>
-                                                <td><img src="assets/img/pdf.png" alt=""></td>
+                                                <td><img src="{{ asset('backend') }}/assets/img/pdf.png" alt=""></td>
                                                 <td class="text-right">
                                                     <a href="edit-student.html" class="btn btn-primary btn-sm mb-1">
                                                         <i class="far fa-edit"></i>

@@ -21,9 +21,9 @@
             <div class="row">
 
                 <div class="col-sm-4 col-12">
-                    <a href="{{ route('admin.export.teacher.pdf') }}" class="btn btn-danger"> <i class="fa fa-file-pdf"></i>
+                    <a href="{{ route('export.all.teacher.pdf') }}" class="btn btn-danger"> <i class="fa fa-file-pdf"></i>
                         Export PDF</a>
-                    <a href="{{ route('admin.allexport.teacher') }}" class="btn btn-success"> <i
+                    <a href="{{ route('export.all.teacher.excel') }}" class="btn btn-success"> <i
                             class="fa fa-file-excel"></i> Export Excel</a>
                 </div>
 

@@ -28,6 +28,7 @@
                     <ul class="list-unstyled" style="display: none;">
                         <li><a href="{{ route('admin.all.teacher') }}"><span>All Teachers</span></a></li>
                         <li><a href="{{ route('admin.add.teacher') }}"><span>Add Teacher</span></a></li>
+                        <li><a href="{{ route('admin.teacher.trash') }}"><span>Trash</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">

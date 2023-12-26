@@ -15,7 +15,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('backend.index');
+        $students = count(User::where('role','=','student')->get());
+        $teachers = count(User::where('role','=','teacher')->get());
+        $gurdians = count(User::where('role','=','gurdian')->get());
+        $admins = count(User::where('role','=','admin')->get());
+        return view('backend.index',compact('students','teachers','gurdians','admins'));
     }
 
     public function logout(Request $request)
