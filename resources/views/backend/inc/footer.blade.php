@@ -43,8 +43,6 @@
         "hideMethod": "fadeOut"
     }
 
-
-    
 </script>
 
 </body>

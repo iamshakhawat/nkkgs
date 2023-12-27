@@ -30,8 +30,6 @@
                                         @else
                                             <img class="rounded-circle" src="{{ asset('backend') }}/assets/img/user.jpg"
                                                 width="30" height="30" alt="{{ Auth::user()->fname }}">
-
-                                                <img class="avatar" src="{{ asset('backend') }}/assets/img/user.jpg" alt="">
                                         @endif
                                     </a>
                                 </div>

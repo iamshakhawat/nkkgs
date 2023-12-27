@@ -79,6 +79,9 @@
                                                 <p class="mb-0"><strong class="pr-1">Class:</strong>{{ $student->class }}</p>
                                                 <p class="mb-0"><strong class="pr-1">Section:</strong>{{ $student->section }}</p>
                                                 <p class="mb-0"><strong class="pr-1">Birth Date:</strong>{{ $student->dob }}</p>
+                                                <a href="{{ route('admin.edit.student',['id' => $student->id]) }}" class="btn btn-success">
+                                                    <i class="fa fa-edit"></i> Edit
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

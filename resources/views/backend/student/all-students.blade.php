@@ -26,13 +26,15 @@
                             class="fa fa-file-excel"></i> Export Excel</a>
                 </div>
                 <div class="col-sm-8 col-12 text-right add-btn-col">
-                    <a href="{{ route('admin.add.teacher') }}" class="btn btn-primary btn-rounded float-right"><i
+                    <a href="{{ route('admin.add.student') }}" class="btn btn-primary btn-rounded float-right"><i
                             class="fas fa-plus"></i>
                         Add Student</a>
                     <div class="view-icons">
-                        <a href="{{ route('admin.all.teacher') }}" class="grid-view btn btn-link active"><i
+                        <a href="{{ route('admin.student.trash') }}" class="grid-view btn btn-link "><i
+                                class="fas fa-trash-alt"></i></a>
+                        <a href="{{ route('admin.all.student') }}" class="grid-view btn btn-link active"><i
                                 class="fas fa-th"></i></a>
-                        <a href="{{ route('admin.all.teacher.list') }}" class="list-view btn btn-link "><i
+                        <a href="{{ route('admin.all.student.list') }}" class="list-view btn btn-link "><i
                                 class="fas fa-bars"></i></a>
                     </div>
                 </div>
@@ -162,7 +164,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Delete Employee</h4>
                 </div>
-                <form action="{{ route('admin.delete.student') }}" method="POST">
+                <form action="{{ route('admin.movetotrash.student') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <p>Are you sure want to delete this?</p>

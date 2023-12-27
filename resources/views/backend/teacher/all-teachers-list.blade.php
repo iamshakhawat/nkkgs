@@ -111,51 +111,52 @@
                                                 <small>({{ $teacher->subject }})</small>
                                             </div>
                                         </div>
+
+                                    </td>
+                                    <td>{{ $teacher->user_id }}</td>
+                                    <td>{{ $teacher->gender }}</td>
+                                    <td>{{ $teacher->dob }}</td>
+                                    <td>{{ $teacher->email }}</td>
+                                    <td>{{ $teacher->phone }}</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success"
+                                            href="{{ route('admin.edit.teacher', ['id' => $teacher->id]) }}"><i
+                                                class=" fa fa-edit"></i></a>
+                                        <a class="btn btn-sm btn-danger" onclick="$('#user_id').val({{ $teacher->id }})"
+                                            data-toggle="modal" data-target="#delete_employee"><i
+                                                class="fas fa-trash-alt m-r-5"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                </td>
-                <td>{{ $teacher->user_id }}</td>
-                <td>{{ $teacher->gender }}</td>
-                <td>{{ $teacher->dob }}</td>
-                <td>{{ $teacher->email }}</td>
-                <td>{{ $teacher->phone }}</td>
-                <td>
-                    <a class="btn btn-sm btn-success" href="{{ route('admin.edit.teacher', ['id' => $teacher->id]) }}"><i
-                            class=" fa fa-edit"></i></a>
-                    <a class="btn btn-sm btn-danger" onclick="$('#user_id').val({{ $teacher->id }})" data-toggle="modal"
-                        data-target="#delete_employee"><i class="fas fa-trash-alt m-r-5"></i>
-                    </a>
-                </td>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
+
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                {{ $teachers->appends($_GET)->links('pagination::bootstrap-4') }}
             </div>
         </div>
 
-        <div class="d-flex justify-content-center mt-3">
-            {{ $teachers->appends($_GET)->links('pagination::bootstrap-4') }}
-        </div>
-    </div>
-    </div>
-
-    <div id="delete_employee" class="modal" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-md">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
-                </div>
-                <form action="{{ route('admin.delete.teacher') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <p>Are you sure want to delete this?</p>
-                        <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-                            <input type="hidden" id="user_id" name="user_id">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
+        <div id="delete_employee" class="modal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Employee</h4>
                     </div>
-                </form>
+                    <form action="{{ route('admin.delete.teacher') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <p>Are you sure want to delete this?</p>
+                            <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
+                                <input type="hidden" id="user_id" name="user_id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-@endsection
+    @endsection

@@ -58,8 +58,6 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     // Trash
     Route::get('/admin-trash', [AdminController::class, 'adminTrash'])->name('admin.trash.admin');
     Route::get('/admin-restore/{id}', [AdminController::class, 'adminRestore'])->name('admin.restore.admin');
-    Route::get('/teacher-trash', [TeacherController::class, 'teacherTrash'])->name('admin.teacher.trash');
-    Route::get('/restore-teacher/{id}', [TeacherController::class, 'restoreTeacher'])->name('admin.restore.teacher');
 
 
     // Teacher 
@@ -73,13 +71,25 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::post('/delete-teacher', [TeacherController::class, 'DeleteTeacher'])->name('admin.delete.teacher');
     Route::post('/forcedelete-teacher', [TeacherController::class, 'forceDeleteTeacher'])->name('admin.forcedelete.teacher');
 
+    // Teacher Trash
+    Route::get('/teacher-trash', [TeacherController::class, 'teacherTrash'])->name('admin.teacher.trash');
+    Route::get('/restore-teacher/{id}', [TeacherController::class, 'restoreTeacher'])->name('admin.restore.teacher');
+
 
     // Student
     Route::get('/student/{id}', [StudentController::class, 'studentProfile'])->name('admin.student.profile');
     Route::get('/all-student', [StudentController::class, 'allStudent'])->name('admin.all.student');
+    Route::get('/all-student-list', [StudentController::class, 'allStudentList'])->name('admin.all.student.list');
+    Route::get('/edit-student/{id}', [StudentController::class, 'editStudent'])->name('admin.edit.student');
+    Route::post('/update-student', [StudentController::class, 'updateStudent'])->name('admin.editPost.student');
+    Route::get('/add-student', [StudentController::class, 'addStudent'])->name('admin.add.student');
+    Route::post('/insert-student', [StudentController::class, 'insertStudent'])->name('admin.insert.student');
+
+    // Student Trash
+    Route::get('/student-trash', [studentController::class, 'studentTrash'])->name('admin.student.trash');
+    Route::get('/restore-student/{id}', [studentController::class, 'restorestudent'])->name('admin.restore.student');
+    Route::post('/student-move-to-trash', [studentController::class, 'movetoTrash'])->name('admin.movetotrash.student');
     Route::post('/delete-student', [StudentController::class, 'deleteStudent'])->name('admin.delete.student');
-
-
 
     
 });
