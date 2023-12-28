@@ -16,7 +16,7 @@
                     <div class="center">
                         <h2>Invalid Token</h2>
                         <p>Please Check your mail again.</p>
-                        <a href="{{ route('admin.dashboard') }}">Back to Dashboard</a>
+                        <a href="{{ route('login') }}">Back</a>
                     </div>
                 </body>
                 </html>

@@ -76,6 +76,8 @@
 
 
 
+
+
                 <li class="submenu">
                     <a href="#"><img src="{{ asset('backend') }}/assets/img/sidebar/icon-9.png" alt="icon"> <span> Student Meterials</span> <span
                             class="menu-arrow"></span></a>
@@ -84,8 +86,8 @@
                         <li><a href=""><span>Syllebus</span></a></li>
                         <li><a href=""><span>Admit Card</span></a></li>
                         <li><a href=""><span>Book list</span></a></li>
-                        <li><a href=""><span>TC</span></a></li>
                         <li><a href=""><span>Attendence</span></a></li>
+                        <li><a href="{{ route('tc') }}"><span>TC</span></a></li>
                     </ul>
                 </li>
 

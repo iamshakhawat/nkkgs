@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgetPassword;
 use App\Http\Controllers\Homepage;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TC;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,22 @@ Route::get('/users', [Homepage::class, 'users'])->name('users');
 Route::get('/login', [Homepage::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost')->middleware('guest');
 
+
+// Reset Password
+Route::get('/forget-password', [ForgetPassword::class, 'forgetPassword'])->name('forget.password');
+Route::post('/forget-password', [ForgetPassword::class, 'resetPassword'])->name('reset.password');
+Route::get('/verify', [ForgetPassword::class, 'verifyEmail'])->name('verify.email');
+Route::post('/set-new-password', [ForgetPassword::class, 'setNewPassword'])->name('new.password');
+
+
+
+Route::get('/test',function (){
+    return view('studentportal.index');
+} );
+
+
+
+
 Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function () {
 
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -37,9 +55,6 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::post('/change-password', [AdminController::class, 'changePassword'])->name('admin.change.password');
     Route::post('/set-new-password', [AdminController::class, 'setNewPassword'])->name('admin.new.password');
     Route::get('/account-delete', [AdminController::class, 'deleteAccount'])->name('admin.account.delete');
-    Route::get('/forget-password', [AdminController::class, 'forgetPassword'])->name('admin.forget.password');
-    Route::post('/forget-password', [AdminController::class, 'resetPassword'])->name('admin.reset.password');
-    Route::get('/verify', [AdminController::class, 'verifyEmail'])->name('admin.verify.email');
 
 
     // Admin
@@ -101,6 +116,10 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::get('/add-parent', [ParentController::class, 'addparent'])->name('add.parent');
     Route::post('/add-parent', [ParentController::class, 'insertParent'])->name('add.parent.post');
 
+
+    // TC 
+    Route::get('/tc', [TC::class, 'tc'])->name('tc');
+    Route::get('/preview-tc', [TC::class, 'previewTc'])->name('preview-tc');
 
     
 });

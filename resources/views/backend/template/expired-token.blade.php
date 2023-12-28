@@ -16,7 +16,7 @@
                     <div class="center">
                         <h2>This link is Expired.</h2>
                         <p>Try again to reset your password</p>
-                        <a href="{{ route('admin.forget.password') }}">Reset Again</a>
+                        <a href="{{ route('forget.password') }}">Reset Again</a>
                     </div>
                 </body>
                 </html>

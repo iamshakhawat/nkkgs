@@ -153,7 +153,7 @@ class AdminController extends Controller
             $token = md5(uniqid());
             $user = DB::table('users')->where('email', $request->email)->get();
             $name = $user[0]->fname . ' ' . $user[0]->lname;
-            $url = request()->getSchemeAndHttpHost() . "/admin/verify?token=$token";
+            $url = request()->getSchemeAndHttpHost() . "/verify?token=$token";
 
             $maildata = [
                 'name' => $name,
@@ -194,7 +194,7 @@ class AdminController extends Controller
 
         if ($resetTime >= $currentTime) {
             if ($dbtoken === $token) {
-                return view('backend.admin.new-password', compact('id'));
+                return view('backend.new-password', compact('id'));
             } else {
                 return view('backend.template.invalid-token');
             }
@@ -213,7 +213,7 @@ class AdminController extends Controller
         DB::table('users')->where('id', $request->id)->update([
             'password' => Hash::make($request->new_password),
         ]);
-        return redirect()->route('admin.profile')->withIcon('success')->withMessege('Password Change Successfully!');
+        return redirect()->route('login')->withIcon('success')->withMessege('Password Change Successfully!');
     }
 
 
