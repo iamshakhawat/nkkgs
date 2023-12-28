@@ -4,10 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetPassword;
 use App\Http\Controllers\Homepage;
-use App\Http\Controllers\ParentController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TC;
-use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +38,10 @@ Route::post('/set-new-password', [ForgetPassword::class, 'setNewPassword'])->nam
 Route::get('/test',function (){
     return view('studentportal.index');
 } );
+
+Route::prefix('/student')->middleware('auth','rolecheck:student')->group(function (){
+    Route::get('/dashboard', [StudentController::class, 'index'])->name('admin.dashboard');
+});
 
 
 
@@ -77,44 +79,44 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
 
 
     // Teacher 
-    Route::get('/all-teacher', [TeacherController::class, 'AllTeacher'])->name('admin.all.teacher');
-    Route::get('/all-teacher-list', [TeacherController::class, 'AllTeacherList'])->name('admin.all.teacher.list');
-    Route::get('/teacher/{id}', [TeacherController::class, 'SingleTeacher'])->name('admin.profile.teacher');
-    Route::get('/teacher/edit/{id}', [TeacherController::class, 'EditTeacher'])->name('admin.edit.teacher');
-    Route::post('/teacher/edit', [TeacherController::class, 'UpdateTeacher'])->name('admin.editPost.teacher');
-    Route::get('/add-teacher', [TeacherController::class, 'AddTeacher'])->name('admin.add.teacher');
-    Route::post('/add-teacher', [TeacherController::class, 'AddNewTeacher'])->name('admin.addPost.teacher');
-    Route::post('/delete-teacher', [TeacherController::class, 'DeleteTeacher'])->name('admin.delete.teacher');
-    Route::post('/forcedelete-teacher', [TeacherController::class, 'forceDeleteTeacher'])->name('admin.forcedelete.teacher');
+    Route::get('/all-teacher', [AdminController::class, 'AllTeacher'])->name('admin.all.teacher');
+    Route::get('/all-teacher-list', [AdminController::class, 'AllTeacherList'])->name('admin.all.teacher.list');
+    Route::get('/teacher/{id}', [AdminController::class, 'SingleTeacher'])->name('admin.profile.teacher');
+    Route::get('/teacher/edit/{id}', [AdminController::class, 'EditTeacher'])->name('admin.edit.teacher');
+    Route::post('/teacher/edit', [AdminController::class, 'UpdateTeacher'])->name('admin.editPost.teacher');
+    Route::get('/add-teacher', [AdminController::class, 'AddTeacher'])->name('admin.add.teacher');
+    Route::post('/add-teacher', [AdminController::class, 'AddNewTeacher'])->name('admin.addPost.teacher');
+    Route::post('/delete-teacher', [AdminController::class, 'DeleteTeacher'])->name('admin.delete.teacher');
+    Route::post('/forcedelete-teacher', [AdminController::class, 'forceDeleteTeacher'])->name('admin.forcedelete.teacher');
 
     // Teacher Trash
-    Route::get('/teacher-trash', [TeacherController::class, 'teacherTrash'])->name('admin.teacher.trash');
-    Route::get('/restore-teacher/{id}', [TeacherController::class, 'restoreTeacher'])->name('admin.restore.teacher');
+    Route::get('/teacher-trash', [AdminController::class, 'teacherTrash'])->name('admin.teacher.trash');
+    Route::get('/restore-teacher/{id}', [AdminController::class, 'restoreTeacher'])->name('admin.restore.teacher');
 
 
     // Student
-    Route::get('/student/{id}', [StudentController::class, 'studentProfile'])->name('admin.student.profile');
-    Route::get('/all-student', [StudentController::class, 'allStudent'])->name('admin.all.student');
-    Route::get('/all-student-list', [StudentController::class, 'allStudentList'])->name('admin.all.student.list');
-    Route::get('/edit-student/{id}', [StudentController::class, 'editStudent'])->name('admin.edit.student');
-    Route::post('/update-student', [StudentController::class, 'updateStudent'])->name('admin.editPost.student');
-    Route::get('/add-student', [StudentController::class, 'addStudent'])->name('admin.add.student');
-    Route::post('/insert-student', [StudentController::class, 'insertStudent'])->name('admin.insert.student');
+    Route::get('/student/{id}', [AdminController::class, 'studentProfile'])->name('admin.student.profile');
+    Route::get('/all-student', [AdminController::class, 'allStudent'])->name('admin.all.student');
+    Route::get('/all-student-list', [AdminController::class, 'allStudentList'])->name('admin.all.student.list');
+    Route::get('/edit-student/{id}', [AdminController::class, 'editStudent'])->name('admin.edit.student');
+    Route::post('/update-student', [AdminController::class, 'updateStudent'])->name('admin.editPost.student');
+    Route::get('/add-student', [AdminController::class, 'addStudent'])->name('admin.add.student');
+    Route::post('/insert-student', [AdminController::class, 'insertStudent'])->name('admin.insert.student');
 
     // Student Trash
-    Route::get('/student-trash', [studentController::class, 'studentTrash'])->name('admin.student.trash');
-    Route::get('/restore-student/{id}', [studentController::class, 'restorestudent'])->name('admin.restore.student');
-    Route::post('/student-move-to-trash', [studentController::class, 'movetoTrash'])->name('admin.movetotrash.student');
-    Route::post('/delete-student', [StudentController::class, 'deleteStudent'])->name('admin.delete.student');
+    Route::get('/student-trash', [AdminController::class, 'studentTrash'])->name('admin.student.trash');
+    Route::get('/restore-student/{id}', [AdminController::class, 'restorestudent'])->name('admin.restore.student');
+    Route::post('/student-move-to-trash', [AdminController::class, 'movetoTrashStudent'])->name('admin.movetotrash.student');
+    Route::post('/delete-student', [AdminController::class, 'deleteStudent'])->name('admin.delete.student');
 
 
-    Route::get('/all-parents', [ParentController::class, 'allParent'])->name('parent.all');
-    Route::get('/parent-profile/{id}', [ParentController::class, 'parentProfile'])->name('parent.profile');
-    Route::get('/edit-parent-profile/{id}', [ParentController::class, 'editProfile'])->name('edit.parent.profile');
-    Route::post('/delete-parent', [ParentController::class, 'moveToTrash'])->name('parent.movetotrash');
-    Route::post('/update-parent', [ParentController::class, 'updateParent'])->name('parent.editPost');
-    Route::get('/add-parent', [ParentController::class, 'addparent'])->name('add.parent');
-    Route::post('/add-parent', [ParentController::class, 'insertParent'])->name('add.parent.post');
+    Route::get('/all-parents', [AdminController::class, 'allParent'])->name('parent.all');
+    Route::get('/parent-profile/{id}', [AdminController::class, 'parentProfile'])->name('parent.profile');
+    Route::get('/edit-parent-profile/{id}', [AdminController::class, 'editProfile'])->name('edit.parent.profile');
+    Route::post('/delete-parent', [AdminController::class, 'moveToTrash'])->name('parent.movetotrash');
+    Route::post('/update-parent', [AdminController::class, 'updateParent'])->name('parent.editPost');
+    Route::get('/add-parent', [AdminController::class, 'addparent'])->name('add.parent');
+    Route::post('/add-parent', [AdminController::class, 'insertParent'])->name('add.parent.post');
 
 
     // TC 
