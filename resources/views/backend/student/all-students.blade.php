@@ -132,7 +132,7 @@
                 <a href="javascript:void()" class="action-icon dropdown-toggle" data-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ route('admin.student.profile', ['id' => $student->id]) }}"><i
+                    <a class="dropdown-item" href="{{ route('admin.edit.student', ['id' => $student->id]) }}"><i
                             class="fas fa-pencil-alt m-r-5"></i>
                         Edit</a>
                     <a class="dropdown-item" onclick="$('#user_id').val({{ $student->id }})" data-toggle="modal"

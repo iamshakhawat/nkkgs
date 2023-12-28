@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Homepage;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,16 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::get('/restore-student/{id}', [studentController::class, 'restorestudent'])->name('admin.restore.student');
     Route::post('/student-move-to-trash', [studentController::class, 'movetoTrash'])->name('admin.movetotrash.student');
     Route::post('/delete-student', [StudentController::class, 'deleteStudent'])->name('admin.delete.student');
+
+
+    Route::get('/all-parents', [ParentController::class, 'allParent'])->name('parent.all');
+    Route::get('/parent-profile/{id}', [ParentController::class, 'parentProfile'])->name('parent.profile');
+    Route::get('/edit-parent-profile/{id}', [ParentController::class, 'editProfile'])->name('edit.parent.profile');
+    Route::post('/delete-parent', [ParentController::class, 'moveToTrash'])->name('parent.movetotrash');
+    Route::post('/update-parent', [ParentController::class, 'updateParent'])->name('parent.editPost');
+    Route::get('/add-parent', [ParentController::class, 'addparent'])->name('add.parent');
+    Route::post('/add-parent', [ParentController::class, 'insertParent'])->name('add.parent.post');
+
 
     
 });

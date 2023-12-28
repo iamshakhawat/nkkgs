@@ -155,7 +155,7 @@
                                     <td>{{ $student->email }}</td>
                                     <td>{{ $student->phone }}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-success" href=""><i class=" fa fa-edit"></i></a>
+                                        <a class="btn btn-sm btn-success" href="{{ route('admin.edit.student',['id' => $student->id]) }}"><i class=" fa fa-edit"></i></a>
                                         <a class="btn btn-sm btn-danger" onclick="$('#user_id').val({{ $student->id }})"
                                             data-toggle="modal" data-target="#delete_employee"><i
                                                 class="fas fa-trash-alt m-r-5"></i>
