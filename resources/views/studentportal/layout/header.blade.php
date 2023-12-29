@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="{{ asset('backend/student') }}/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('backend/student') }}/images/favicon.png" />
+    
+	<script src="{{ asset('backend') }}/assets/js/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/toastr.min.css">
+	<script src="{{ asset('backend') }}/assets/js/toastr.min.js"></script>
 </head>
 
 <body>

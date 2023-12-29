@@ -1,4 +1,4 @@
-@include('studentportal.layout.header')
+    @include('studentportal.layout.header')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->

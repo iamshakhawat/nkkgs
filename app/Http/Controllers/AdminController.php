@@ -434,6 +434,7 @@ class AdminController extends Controller
     public function addparent(){
         return view('backend.parent.add-parent');
     }
+    
     public function insertParent(Request $request){
         $request->validate([
             'fname' => 'required|string',

@@ -34,18 +34,6 @@ Route::get('/verify', [ForgetPassword::class, 'verifyEmail'])->name('verify.emai
 Route::post('/set-new-password', [ForgetPassword::class, 'setNewPassword'])->name('new.password');
 
 
-
-Route::get('/test',function (){
-    return view('studentportal.index');
-} );
-
-Route::prefix('/student')->middleware('auth','rolecheck:student')->group(function (){
-    Route::get('/dashboard', [StudentController::class, 'index'])->name('admin.dashboard');
-});
-
-
-
-
 Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function () {
 
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -125,3 +113,18 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
 
     
 });
+
+
+Route::prefix('/student')->middleware('auth','rolecheck:student')->group(function (){
+    Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+    Route::get('/logout', [StudentController::class, 'logout'])->name('student.logout');
+    Route::get('/change-password', [StudentController::class, 'changePassword'])->name('student.change.password');
+    Route::post('/change-password', [StudentController::class, 'changePasswordPost'])->name('student.change.password.post');
+    Route::get('/profile', [StudentController::class, 'profile'])->name('student.profile');
+    Route::get('/edit', [StudentController::class, 'editprofile'])->name('student.edit');
+    Route::post('/edit-profile', [StudentController::class, 'editprofilePost'])->name('student.editPost');
+
+});
+
+
+

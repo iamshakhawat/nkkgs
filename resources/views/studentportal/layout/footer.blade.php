@@ -22,6 +22,34 @@
 {{-- <script src="{{ asset('backend/student') }}/js/dashboard.js"></script> --}}
 <script src="{{ asset('backend/student') }}/js/Chart.roundedBarCharts.js"></script>
 <!-- End custom js for this page-->
+
+@if (Session::has('icon') || Session::has('messege'))
+    <script>
+        toastr["{{ Session::get('icon') }}"]("{{ Session::get('messege') }}");
+    </script>
+@endif
+
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+</script>
+
 </body>
 
 </html>
