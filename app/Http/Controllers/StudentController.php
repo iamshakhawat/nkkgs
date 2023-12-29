@@ -84,6 +84,7 @@ class StudentController extends Controller
             'phone' => 'required|numeric',
             'current_address' => 'required|string',
             'parmanent_address' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
 
