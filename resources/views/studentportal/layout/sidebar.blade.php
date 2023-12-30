@@ -81,18 +81,18 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false"
+            <a class="nav-link" data-toggle="collapse" href="#tc" aria-expanded="false"
                 aria-controls="auth">
                 <i class="icon-head menu-icon"></i>
-                <span class="menu-title">User Pages</span>
+                <span class="menu-title">TC</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="tc">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('student.applyfortc') }}"> Apply for TC </a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">
-                            Register </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('student.tcstatus') }}">
+                            TC Status </a></li>
                 </ul>
             </div>
         </li>

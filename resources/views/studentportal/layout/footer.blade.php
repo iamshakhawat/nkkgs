@@ -47,7 +47,9 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 
 </body>

@@ -3,24 +3,27 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use App\Models\Tc;
 use App\Models\User;
 use App\Models\Subject;
 use App\Mail\ForgetPassword;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $students = count(User::where('role','=','student')->get());
-        $teachers = count(User::where('role','=','teacher')->get());
-        $gurdians = count(User::where('role','=','gurdian')->get());
-        $admins = count(User::where('role','=','admin')->get());
-        return view('backend.index',compact('students','teachers','gurdians','admins'));
+        $students = count(User::where('role', '=', 'student')->get());
+        $teachers = count(User::where('role', '=', 'teacher')->get());
+        $gurdians = count(User::where('role', '=', 'gurdian')->get());
+        $admins = count(User::where('role', '=', 'admin')->get());
+        return view('backend.index', compact('students', 'teachers', 'gurdians', 'admins'));
     }
 
     public function logout(Request $request)
@@ -223,22 +226,22 @@ class AdminController extends Controller
         $search = $request->search;
         $filter = $request->filter;
 
-        $query = User::query()->where('role','admin');
+        $query = User::query()->where('role', 'admin');
 
         if ($search != "") {
-            $query->where('fname','LIKE',"%$search%");
+            $query->where('fname', 'LIKE', "%$search%");
         }
-        if($filter != "" && $filter == 'a2z'){
-            $query->orderBy('fname','asc');
+        if ($filter != "" && $filter == 'a2z') {
+            $query->orderBy('fname', 'asc');
         }
-        if($filter != "" && $filter == 'z2a'){
-            $query->orderBy('fname','desc');
+        if ($filter != "" && $filter == 'z2a') {
+            $query->orderBy('fname', 'desc');
         }
-        if($filter != "" && $filter == 'active'){
+        if ($filter != "" && $filter == 'active') {
             $query->where('status', '=', 1);
         }
 
-        $admins = $query->paginate(10); 
+        $admins = $query->paginate(10);
 
         return view('backend.admin.all-admin', compact('admins', 'search', 'filter'));
     }
@@ -255,7 +258,8 @@ class AdminController extends Controller
         return view('backend.admin.edit-admin', compact('admin'));
     }
 
-    public function moveTrashAdmin($id){
+    public function moveTrashAdmin($id)
+    {
         User::destroy($id);
         return redirect()->back()->withIcon('success')->withMessege('Admin Delete Successfull!');
     }
@@ -365,22 +369,26 @@ class AdminController extends Controller
         return redirect()->back()->withIcon('success')->withMessege('Admin Restored Successfully!');
     }
 
-    public function allParent(){
-        $parents = User::where('role','gurdian')->paginate(20);
-        return view('backend.parent.all-parents',compact('parents'));
+    public function allParent()
+    {
+        $parents = User::where('role', 'gurdian')->paginate(20);
+        return view('backend.parent.all-parents', compact('parents'));
     }
 
-    public function parentProfile($id){
+    public function parentProfile($id)
+    {
         $parent = User::find($id);
-        return view('backend.parent.parent-profile',compact('parent'));
+        return view('backend.parent.parent-profile', compact('parent'));
     }
 
-    public function editProfile($id){
+    public function editProfile($id)
+    {
         $parent = User::find($id);
-        return view('backend.parent.edit-parent-profile',compact('parent'));
+        return view('backend.parent.edit-parent-profile', compact('parent'));
     }
 
-    public function moveToTrash(Request $request){
+    public function moveToTrash(Request $request)
+    {
         $id = $request->user_id;
         $dbimage = User::find($id)->photo;
         if ($dbimage != "") {
@@ -389,11 +397,12 @@ class AdminController extends Controller
                 unlink($path);
             }
         }
-        User::where('id',$id)->forceDelete();
+        User::where('id', $id)->forceDelete();
         return redirect()->back()->withIcon('success')->withMessege('Parent Delete Successfull!');
     }
 
-    public function updateParent(Request $request){
+    public function updateParent(Request $request)
+    {
 
         $request->validate([
             'fname' => 'required|string',
@@ -407,7 +416,7 @@ class AdminController extends Controller
         DB::table('users')->where('id', $request->id)->update([
             'fname' => $request->fname,
             'lname' => $request->lname,
-            'name' => $request->fname.' '.$request->lname,
+            'name' => $request->fname . ' ' . $request->lname,
             'email' => $request->email,
             'phone' => $request->phone,
             'gender' => $request->gender,
@@ -431,11 +440,13 @@ class AdminController extends Controller
         return redirect()->back()->withIcon('success')->withMessege('Profile Updated Successfully!');
     }
 
-    public function addparent(){
+    public function addparent()
+    {
         return view('backend.parent.add-parent');
     }
-    
-    public function insertParent(Request $request){
+
+    public function insertParent(Request $request)
+    {
         $request->validate([
             'fname' => 'required|string',
             'lname' => 'required|string',
@@ -456,7 +467,7 @@ class AdminController extends Controller
 
         $parent->fname = $request->fname;
         $parent->lname = $request->lname;
-        $parent->name = $request->fname.' '.$request->lname;
+        $parent->name = $request->fname . ' ' . $request->lname;
         $parent->email = $request->email;
         $parent->phone = $request->phone;
         $parent->gender = $request->gender;
@@ -467,7 +478,6 @@ class AdminController extends Controller
         $parent->save();
 
         return redirect()->route('parent.all')->withIcon('success')->withMessege('Parent Added Successfully!');
-
     }
 
     // Student 
@@ -506,7 +516,7 @@ class AdminController extends Controller
 
         $total = count($query->where('role', '=', 'student')->get());
 
-        $students = $query->where('role', '=', 'student')->orderBy('id','desc')->paginate(20);
+        $students = $query->where('role', '=', 'student')->orderBy('id', 'desc')->paginate(20);
 
 
         return view('backend.student.all-students', compact('students', 'shift', 'class', 'section', 'roll', 'name', 'total'));
@@ -643,7 +653,7 @@ class AdminController extends Controller
             ]);
         }
 
-        DB::table('users')->where('id',$request->id)->update([
+        DB::table('users')->where('id', $request->id)->update([
 
             'fname' => $request->fname,
             'lname' => $request->lname,
@@ -679,7 +689,7 @@ class AdminController extends Controller
     {
         return view('backend.student.add-student');
     }
-    
+
     public function insertStudent(Request $request)
     {
         $request->validate([
@@ -722,7 +732,7 @@ class AdminController extends Controller
 
         $student->fname = $request->fname;
         $student->lname = $request->lname;
-        $student->name = $request->fname.' '.$request->lname;
+        $student->name = $request->fname . ' ' . $request->lname;
         $student->user_id = $request->user_id;
         $student->class = $request->class;
         $student->section = $request->section;
@@ -748,17 +758,138 @@ class AdminController extends Controller
         $student->role = 'student';
         $student->save();
 
-        
+
         return redirect()->route('admin.all.student')->withIcon('success')->withMessege('Student Added!');
     }
 
-    public function tc(){
-        return view('TC.tc');
+    public function tc()
+    {
+
+        $tcs = Tc::join('users', 'tcs.student_id', '=', 'users.id')->whereNull('tcs.deleted_at')->paginate(10);
+
+
+        return view('tc.all-tc', compact('tcs'));
     }
 
-    public function previewTc(){
-        return view('TC.preview-tc');
+    public function previewTc($tc_id, $student_id)
+    {
+
+
+        $student = User::withTrashed()->where('id', $student_id)->first();
+
+        $tc = Tc::withTrashed()->where('tc_id', $tc_id)->first();
+
+
+        $date = date('d-m-Y', strtotime($tc->created_at));
+
+        return view('TC.preview-tc', compact('student', 'tc', 'date'));
     }
+
+
+    public function tcTrash()
+    {
+
+        $tcs = Tc::onlyTrashed()->join('users', 'tcs.student_id', '=', 'users.id')->paginate(20);
+
+        return view('tc.tc-trash', compact('tcs'));
+    }
+
+    public function movetotctrash($id)
+    {
+        Tc::where('tc_id', $id)->delete();
+        return redirect()->back()->withIcon('warning')->withMessege('Tc Request Trashed!');
+    }
+
+    public function tcrestore($id)
+    {
+        Tc::where('tc_id', $id)->restore();
+        return redirect()->back()->withIcon('success')->withMessege('Tc Request Restored!');
+    }
+
+    public function tcdelete(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+        ]);
+
+
+        $pdf = Tc::withTrashed()->where('tc_id', $request->user_id)->first()->download;
+            if ($pdf != "") {
+                $path = public_path('/tc') . '/' . $pdf;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+
+        Tc::where('tc_id', $request->user_id)->forceDelete();
+
+        return redirect()->back()->withIcon('success')->withMessege('Tc Request Delete!');
+    }
+
+    public function tcapprove(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'message' => 'required',
+        ]);
+        $tc = Tc::where('tc_id', $request->user_id)->first();
+        $student_id = $tc->student_id;
+
+        // $tcnew = Tc::where('tc_id',$request->user_id)->first();
+        $name = User::find($student_id)->name;
+        $date = date('d-m-Y', strtotime($tc->updated_at));
+
+        $filename = User::find($student_id)->fname . "_" . time() . ".pdf";
+        $pdf = Pdf::loadView('tc.transfer-certificate', array('name' => $name, 'date' => $date))->setPaper('a4', 'landscape')->save(public_path('/tc') . "/" . $filename);
+
+        if ($pdf) {
+            // Update Tc
+            $updatetc = Tc::where('tc_id', $request->user_id)->update([
+                'message' => $request->message,
+                'confirmation' => 1,
+                'download' => $filename,
+            ]);
+        }
+
+        return redirect()->back()->withIcon('success')->withMessege('Request Approved!');
+    }
+
+    public function tcreject(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'message' => 'required',
+        ]);
+
+
+
+        Tc::where('tc_id', $request->user_id)->update([
+            'message' => $request->message,
+            'confirmation' => 2,
+        ]);
+
+        return redirect()->back()->withIcon('error')->withMessege('Request Decline!');
+    }
+
+    public function tcdownload($id)
+    {
+
+        $query = Tc::where('tc_id',$id)->first();
+        $file = $query->download; 
+  
+        $student = User::find($query->student_id);
+
+        $filename =$student->fname.'_Transfer_Certificate_'.date('d-m-Y').'.pdf';
+
+        $file= public_path(). "/tc/$file";
+
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+    
+        return Response::download($file,$filename, $headers);
+    }
+
 
     public function AllTeacher(Request $request)
     {
@@ -949,12 +1080,14 @@ class AdminController extends Controller
         return redirect()->back()->withIcon('success')->withMessege('Teacher Delete Successfull!');
     }
 
-    public function teacherTrash(){
-        $teachers = User::onlyTrashed()->where('role','=','teacher')->paginate(10);
-        return view('backend.teacher.teacher-trash',compact('teachers'));
+    public function teacherTrash()
+    {
+        $teachers = User::onlyTrashed()->where('role', '=', 'teacher')->paginate(10);
+        return view('backend.teacher.teacher-trash', compact('teachers'));
     }
 
-    public function forceDeleteTeacher(Request $request){
+    public function forceDeleteTeacher(Request $request)
+    {
         $request->validate([
             'user_id' => 'required',
         ]);
@@ -967,14 +1100,13 @@ class AdminController extends Controller
                 unlink($path);
             }
         }
-        User::where('id',$request->user_id)->forceDelete();
+        User::where('id', $request->user_id)->forceDelete();
         return redirect()->back()->withIcon('success')->withMessege('Teacher Delete Successfull!');
     }
 
-    public function restoreTeacher($id){
+    public function restoreTeacher($id)
+    {
         User::withTrashed()->find($id)->restore();
         return redirect()->back()->withIcon('success')->withMessege('Teacher Restore Successfull!');
     }
-
-
 }

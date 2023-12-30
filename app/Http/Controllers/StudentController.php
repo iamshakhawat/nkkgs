@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tc;
 use App\Models\User;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Container\RewindableGenerator;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT;
 
@@ -134,5 +136,60 @@ class StudentController extends Controller
         ]);
 
         return redirect()->route('student.profile')->withIcon('success')->withMessege('Data Updated!');
+    }
+
+
+    public function applyfortc(){
+        $tc = Tc::where('student_id',Auth::user()->id)->first();
+        $tcstatus = 0;
+        try {
+            $tcstatus = $tc->status;
+        } catch (\Throwable $th) {
+        }
+        return view('studentportal.applyfortc',compact('tcstatus'));
+    }
+
+    public function applyfortcPost(Request $request){
+        $request->validate([
+            'reason' => 'required|string',
+        ]);
+
+        $tc = new Tc();
+        $tc->student_id = Auth::user()->id;
+        $tc->status = 1;
+        $tc->reason = $request->reason;
+        $tc->save();
+        
+        return redirect()->route('student.tcstatus')->withIcon('success')->withMessege('Tc Application Successful!');
+
+    }
+
+    public function tcStatus(){
+        $tc = Tc::where('student_id',Auth::user()->id)->first();
+        $tcstatus = 0;
+        try {
+            $tcstatus = $tc->status;
+        } catch (\Throwable $th) {
+        }
+        return view('studentportal.tcstatus',compact('tcstatus','tc'));
+    }
+    
+    public function tcdownload($id)
+    {
+
+        $query = Tc::where('tc_id',$id)->first();
+        $file = $query->download; 
+  
+        $student = User::find($query->student_id);
+
+        $filename =$student->fname.'_Transfer_Certificate_'.date('d-m-Y').'.pdf';
+
+        $file= public_path(). "/tc/$file";
+
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+    
+        return Response::download($file,$filename, $headers);
     }
 }

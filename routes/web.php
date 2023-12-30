@@ -108,8 +108,15 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
 
 
     // TC 
-    Route::get('/tc', [TC::class, 'tc'])->name('tc');
-    Route::get('/preview-tc', [TC::class, 'previewTc'])->name('preview-tc');
+    Route::get('/tc', [AdminController::class, 'tc'])->name('admin.tc');
+    Route::get('/preview-tc/{tc_id}/{student_id}', [AdminController::class, 'previewTc'])->name('admin.preview-tc');
+    Route::get('/tc-trash', [AdminController::class, 'tcTrash'])->name('admin.tctrash');
+    Route::get('/move-to-tc-trash/{id}', [AdminController::class, 'movetotctrash'])->name('admin.movetotctrash');
+    Route::get('/tc-restore/{tc_id}', [AdminController::class, 'tcrestore'])->name('admin.tcrestore');
+    Route::post('/tc-delete', [AdminController::class, 'tcdelete'])->name('admin.tcdelete');
+    Route::post('/tc-approve', [AdminController::class, 'tcapprove'])->name('admin.tcapprove');
+    Route::post('/tc-reject', [AdminController::class, 'tcreject'])->name('admin.tcreject');
+    Route::get('/tc-download/{id}', [AdminController::class, 'tcdownload'])->name('admin.tcdownload');
 
     
 });
@@ -123,6 +130,10 @@ Route::prefix('/student')->middleware('auth','rolecheck:student')->group(functio
     Route::get('/profile', [StudentController::class, 'profile'])->name('student.profile');
     Route::get('/edit', [StudentController::class, 'editprofile'])->name('student.edit');
     Route::post('/edit-profile', [StudentController::class, 'editprofilePost'])->name('student.editPost');
+    Route::get('/apply-for-tc', [StudentController::class, 'applyfortc'])->name('student.applyfortc');
+    Route::post('/apply-for-tc', [StudentController::class, 'applyfortcPost'])->name('student.applyfortcPost');
+    Route::get('/tc-status', [StudentController::class, 'tcStatus'])->name('student.tcstatus');
+    Route::get('/tc-download/{id}', [StudentController::class, 'tcdownload'])->name('student.tcdownload');
 
 });
 
