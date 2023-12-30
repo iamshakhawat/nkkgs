@@ -129,7 +129,7 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     
 });
 
-
+// Prefix
 Route::prefix('/student')->middleware('auth','rolecheck:student')->group(function (){
     Route::get('/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
     Route::get('/logout', [StudentController::class, 'logout'])->name('student.logout');
@@ -142,7 +142,8 @@ Route::prefix('/student')->middleware('auth','rolecheck:student')->group(functio
     Route::post('/apply-for-tc', [StudentController::class, 'applyfortcPost'])->name('student.applyfortcPost');
     Route::get('/tc-status', [StudentController::class, 'tcStatus'])->name('student.tcstatus');
     Route::get('/tc-download/{id}', [StudentController::class, 'tcdownload'])->name('student.tcdownload');
-
+    Route::get('/booklist',[StudentController::class,'booklist'])->name('student.booklist');
+    Route::get('/download-book/{id}', [AdminController::class, 'downloadBook'])->name('student.downloadbookpdf');
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookList;
 use App\Models\Tc;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -185,6 +186,28 @@ class StudentController extends Controller
         $filename =$student->fname.'_Transfer_Certificate_'.date('d-m-Y').'.pdf';
 
         $file= public_path(). "/tc/$file";
+
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+    
+        return Response::download($file,$filename, $headers);
+    }
+
+    public function booklist(){
+        $booklists = BookList::where('class',Auth::user()->class)->get();
+        return view('studentportal.booklist',compact('booklists'));
+    }
+    
+    public function downloadBook($id)
+    {
+
+        $booklist = BookList::find($id);
+        $pdf = $booklist->pdf; 
+  
+        $filename =$booklist->book_name.'_'.uniqid().'.pdf';
+
+        $file= public_path(). "/booklist/pdf/$pdf";
 
         $headers = array(
                   'Content-Type: application/pdf',

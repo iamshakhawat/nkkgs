@@ -85,7 +85,7 @@
                         <li><a href=""><span>Routine</span></a></li>
                         <li><a href=""><span>Syllebus</span></a></li>
                         <li><a href=""><span>Admit Card</span></a></li>
-                        <li><a href=""><span>Book list</span></a></li>
+                        <li><a href="{{ route('student.booklist') }}"><span>Book list</span></a></li>
                         <li><a href=""><span>Attendence</span></a></li>
                         <li><a href="{{ route('admin.tc') }}"><span>TC</span></a></li>
                     </ul>
