@@ -63,13 +63,11 @@
                     </table>
                     @if ($tc->confirmation == 1)
                         <div class="my-3">
-                            <p class="text-success"><strong class="text-black">Note:</strong> Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Laboriosam, voluptatibus?</p>
+                            <p class="text-success"><strong class="text-black">Note:</strong> {{ $tc->message }}</p>
                         </div>
                     @elseif ($tc->confirmation > 1)
                         <div class="my-3">
-                            <p class="text-danger"><strong class="text-black">Note:</strong> Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit</p>
+                            <p class="text-danger"><strong class="text-black">Note:</strong> {{ $tc->message }}</p>
                         </div>
                     @endif
                 @else

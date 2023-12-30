@@ -7,6 +7,7 @@ use App\Models\Tc;
 use App\Models\User;
 use App\Models\Subject;
 use App\Mail\ForgetPassword;
+use App\Models\BookList;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -1109,4 +1110,134 @@ class AdminController extends Controller
         User::withTrashed()->find($id)->restore();
         return redirect()->back()->withIcon('success')->withMessege('Teacher Restore Successfull!');
     }
+
+    public function book_list(Request $request){
+        $class = $request->class;
+
+        $booklists = BookList::where('class',$class)->get();
+
+
+        return view('backend.book-list',compact('class','booklists'));
+    }
+
+    public function addbooklist(Request $request){
+        $request->validate([
+            'class' => 'required',
+            'book_name' => 'required',
+            'cover' => 'required|image|mimes:png,jpg,jpeg',
+            'pdf' => 'nullable|mimes:pdf',
+        ]);
+
+        $covername = $request->book_name.'_'.uniqid().".". $request->file('cover')->getClientOriginalExtension();
+        $request->file('cover')->move(public_path('/booklist/cover'),$covername);
+
+        $pdf = null;
+        if($request->file('pdf')){
+            $pdf = $request->book_name.'_'.uniqid().".". $request->file('pdf')->getClientOriginalExtension();
+            $request->file('pdf')->move(public_path('/booklist/pdf'),$pdf);
+        }
+
+        $booklist = new BookList();
+        $booklist->class = $request->class;
+        $booklist->book_name = $request->book_name;
+        $booklist->book_cover = $covername;
+        $booklist->pdf = $pdf;
+        $booklist->save();
+
+        return redirect()->back()->withIcon('success')->withMessege('Book List Added!');
+    }
+
+    public function downloadBook($id)
+    {
+
+        $booklist = BookList::find($id);
+        $pdf = $booklist->pdf; 
+  
+        $filename =$booklist->book_name.'_'.uniqid().'.pdf';
+
+        $file= public_path(). "/booklist/pdf/$pdf";
+
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+    
+        return Response::download($file,$filename, $headers);
+    }
+
+    public function deletebooklist($id){
+        $booklist = BookList::find($id)->pdf;
+
+        if($booklist != null){
+            $path = public_path('/')."/booklist/pdf/".$booklist;
+            if(file_exists($path)){
+                unlink($path);
+            }
+        }
+
+        BookList::destroy($id);
+
+        return redirect()->back()->withIcon('success')->withMessege('Booklist Deleted!');
+
+    }
+
+
+    public function editbooklist($id){
+        $booklist = BookList::find($id);
+
+        return view('backend.edit-booklist',compact('booklist'));
+    }
+
+
+    public function updatebooklist(Request $request){
+        $request->validate([
+            'id' => 'required',
+            'class' => 'required',
+            'book_name' => 'required',
+            'cover' => 'nullable|image|mimes:png,jpg,jpeg',
+            'pdf' => 'nullable|mimes:pdf',
+        ]);
+
+        DB::table('book_lists')->where('id', $request->id)->update([
+            'class' => $request->class,
+            'book_name' => $request->book_name,
+        ]);
+
+        if ($request->file('cover')) {
+            $dbcover = BookList::find($request->id)->book_cover;
+            if ($dbcover != "") {
+                $path = public_path('/booklist/cover') . '/' . $dbcover;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            $newcover = $request->book_name . '_' . time() . '.' . $request->file('cover')->getClientOriginalExtension();
+            $request->file('cover')->move(public_path('/booklist/cover'), $newcover);
+            
+            DB::table('book_lists')->where('id', $request->id)->update([
+                'book_cover' => $newcover
+            ]);
+        }
+
+        if ($request->file('pdf')) {
+            $dbpdf = BookList::find($request->id)->pdf;
+            if ($dbpdf != "") {
+                $path = public_path('/booklist/pdf') . '/' . $dbpdf;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            $newpdf = $request->book_name . '_' . time() . '.' . $request->file('pdf')->getClientOriginalExtension();
+            $request->file('pdf')->move(public_path('/booklist/pdf'), $newpdf);
+            
+            DB::table('book_lists')->where('id', $request->id)->update([
+                'pdf' => $newpdf
+            ]);
+        }
+
+        
+        return redirect()->back()->withIcon('success')->withMessege('Booklist Updated!');
+
+    }
+
+
 }

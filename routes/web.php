@@ -118,6 +118,14 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::post('/tc-reject', [AdminController::class, 'tcreject'])->name('admin.tcreject');
     Route::get('/tc-download/{id}', [AdminController::class, 'tcdownload'])->name('admin.tcdownload');
 
+    // Book List
+    Route::get('/book-list', [AdminController::class, 'book_list'])->name('admin.booklist');
+    Route::post('/add-book-list', [AdminController::class, 'addbooklist'])->name('admin.addbooklist');
+    Route::get('/download-book/{id}', [AdminController::class, 'downloadBook'])->name('admin.downloadbookpdf');
+    Route::get('/delete-book/{id}', [AdminController::class, 'deletebooklist'])->name('admin.deletebooklist');
+    Route::get('/edit-booklist/{id}', [AdminController::class, 'editbooklist'])->name('admin.editbooklist');
+    Route::post('/update-booklist', [AdminController::class, 'updatebooklist'])->name('admin.editbooklistPost');
+
     
 });
 
