@@ -65,7 +65,6 @@
                                     </div>
                                     <div class="d-block m-auto text-center">
                                         <button type="submit" class="btn btn-primary mb-2">Change Password</button>
-                                        <a href="{{ route('admin.forget.password') }}" class="d-block">Forget Password</a>
                                     </div>
                                 </div>
                             </form>

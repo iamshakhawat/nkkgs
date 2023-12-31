@@ -16,7 +16,10 @@
 <script src="{{ asset('backend') }}/assets/js/apexcharts.js"></script>
 <script src="{{ asset('backend') }}/assets/js/chart-data.js"></script>
 
+
 <script src="{{ asset('backend') }}/assets/js/app.js"></script>
+
+
 
 @if (Session::has('icon') || Session::has('messege'))
     <script>
@@ -43,6 +46,14 @@
         "hideMethod": "fadeOut"
     }
 
+    ClassicEditor
+        .create(document.querySelector('#ckeditor'))
+        .catch(error => {
+            console.error(error);
+        });
+
+
+    
 </script>
 
 </body>

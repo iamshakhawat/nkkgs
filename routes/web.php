@@ -126,6 +126,13 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::get('/edit-booklist/{id}', [AdminController::class, 'editbooklist'])->name('admin.editbooklist');
     Route::post('/update-booklist', [AdminController::class, 'updatebooklist'])->name('admin.editbooklistPost');
 
+    //Admin Notice
+    Route::get('/notice',[AdminController::class,'notice'])->name('admin.notice');
+    Route::post('/add-notice',[AdminController::class,'addnotice'])->name('admin.addnotice');
+    Route::get('/delete-notice/{id}',[AdminController::class,'deletenotice'])->name('admin.deletenotice');
+    Route::post('/edit-notice',[AdminController::class,'editNotice'])->name('admin.editNotice');
+    Route::post('/update-notice',[AdminController::class,'updatenotice'])->name('admin.updatenotice');
+
     
 });
 

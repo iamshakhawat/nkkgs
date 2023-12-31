@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend') }}/assets/img/favicon.png">
-
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<link href="{{ asset('backend') }}/assets/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
 	<link rel="stylesheet" href="{{ asset('backend') }}/assets/css/bootstrap.min.css">

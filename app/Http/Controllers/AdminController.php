@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Subject;
 use App\Mail\ForgetPassword;
 use App\Models\BookList;
+use App\Models\Notice;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -1239,5 +1240,50 @@ class AdminController extends Controller
 
     }
 
+
+    public function notice(){
+        $notices = Notice::orderBy('id','desc')->paginate(20);
+        $total = count(Notice::all());
+        $currentNotice = Notice::orderBy('id','desc')->limit(1)->get();
+        return view('backend.notice',compact('notices','total','currentNotice'));
+    }
+
+    public function addnotice(Request $request){
+        $request->validate([
+            'notice' => 'required',
+        ]);
+
+        DB::table('notices')->insert([
+            'notice' => $request->notice,
+            'publish' => date('Y-m-d'),
+        ]);
+
+        return redirect()->back()->withIcon('success')->withMessege('Added!');
+
+
+    }
+
+    public function deletenotice($id){
+        Notice::destroy($id);
+        return redirect()->back()->withIcon('success')->withMessege('Notice Deleted!');
+    }
+
+    public function editNotice(Request $request){
+        $notice = Notice::find($request->id);
+        return response()->json($notice);
+    }
+
+    public function updatenotice(Request $request){
+        $request->validate([
+            'notice' => 'required',
+            'id' => 'required',
+        ]);
+
+        $notice = Notice::find($request->id);
+        $notice->notice = $request->notice;
+        $notice->publish = $request->date;
+        $notice->save();
+        return redirect()->back()->withIcon('success')->withMessege('Updated!');
+    }
 
 }

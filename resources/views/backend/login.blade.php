@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend') }}/assets/img/favicon.png">
 
     <link href="../../../../css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/plugins/fontawesome/css/all.min.css">

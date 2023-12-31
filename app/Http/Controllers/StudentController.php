@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookList;
+use App\Models\Notice;
 use App\Models\Tc;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT;
 class StudentController extends Controller
 {
     public function index(){
-        return view('studentportal.index');
+        $currentNotice = Notice::orderBy('id','desc')->limit(1)->get();
+        return view('studentportal.index',compact('currentNotice'));
     }
     
     public function logout(Request $request)
