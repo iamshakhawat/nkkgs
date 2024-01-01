@@ -146,12 +146,16 @@
                                                     <tr>
                                                         <th width="30%">Parent Email</th>
                                                         <td width="2%">:</td>
-                                                        <td>{{ $student->parent_email }}</td>
+                                                        <td>@isset($parent->email)
+                                                            {{ $parent->email }}
+                                                        @endisset</td>
                                                     </tr>
                                                     <tr>
                                                         <th width="30%">Parent Phone</th>
                                                         <td width="2%">:</td>
-                                                        <td>{{ $student->parent_phone }}</td>
+                                                        <td>@isset($parent->phone)
+                                                            {{ $parent->phone }}
+                                                        @endisset</td>
                                                     </tr>
                                                     <tr>
                                                         <th width="30%">Emergency Contact</th>

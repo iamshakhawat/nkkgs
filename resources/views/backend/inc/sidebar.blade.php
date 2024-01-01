@@ -47,6 +47,7 @@
                     <ul class="list-unstyled" style="display: none;">
                         <li><a href="{{ route('parent.all') }}"><span>All Parents</span></a></li>
                         <li><a href="{{ route('add.parent') }}"><span>Add a new Parent</span></a></li>
+                        <li><a href="{{ route('connect.with.student') }}"><span>Connect Student</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -85,7 +86,7 @@
                         <li><a href=""><span>Routine</span></a></li>
                         <li><a href=""><span>Syllebus</span></a></li>
                         <li><a href=""><span>Admit Card</span></a></li>
-                        <li><a href="{{ route('student.booklist') }}"><span>Book list</span></a></li>
+                        <li><a href="{{ route('admin.booklist') }}"><span>Book list</span></a></li>
                         <li><a href=""><span>Attendence</span></a></li>
                         <li><a href="{{ route('admin.tc') }}"><span>TC</span></a></li>
                     </ul>

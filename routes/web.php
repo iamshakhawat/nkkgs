@@ -97,7 +97,7 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::post('/student-move-to-trash', [AdminController::class, 'movetoTrashStudent'])->name('admin.movetotrash.student');
     Route::post('/delete-student', [AdminController::class, 'deleteStudent'])->name('admin.delete.student');
 
-
+    // Parent
     Route::get('/all-parents', [AdminController::class, 'allParent'])->name('parent.all');
     Route::get('/parent-profile/{id}', [AdminController::class, 'parentProfile'])->name('parent.profile');
     Route::get('/edit-parent-profile/{id}', [AdminController::class, 'editProfile'])->name('edit.parent.profile');
@@ -105,6 +105,8 @@ Route::prefix('/admin')->middleware('auth', 'rolecheck:admin')->group(function (
     Route::post('/update-parent', [AdminController::class, 'updateParent'])->name('parent.editPost');
     Route::get('/add-parent', [AdminController::class, 'addparent'])->name('add.parent');
     Route::post('/add-parent', [AdminController::class, 'insertParent'])->name('add.parent.post');
+    Route::get('/connect-with-student',[AdminController::class,'connectwithstudent'])->name('connect.with.student');
+    Route::post('/select-student-for-connect',[AdminController::class,'selectStudentforConnect'])->name('selectStudentforConnect');
 
 
     // TC 

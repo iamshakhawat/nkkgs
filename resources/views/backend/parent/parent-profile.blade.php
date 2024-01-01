@@ -43,7 +43,8 @@
                                             <h5 class="company-role m-t-0 m-b-1">Role: <span
                                                     class="badge badge-primary">{{ Str::ucfirst($parent->role) }}</span>
                                             </h5>
-                                            <a href="{{ route('edit.parent.profile',['id' => $parent->id]) }}" class="btn btn-sm btn-primary">Edit Profile</a>
+                                            <a href="{{ route('edit.parent.profile', ['id' => $parent->id]) }}"
+                                                class="btn btn-sm btn-primary">Edit Profile</a>
                                             <a href="{{ route('parent.all') }}" class="btn btn-sm btn-info">Back</a>
                                         </div>
                                     </div>
@@ -71,232 +72,113 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <br>
+
                         </div>
                     </div>
+
+
+                   
+
                 </div>
             </div>
         </div>
-        <div class="notification-box">
-            <div class="msg-sidebar notifications msg-noti">
-                <div class="topnav-dropdown-header">
-                    <span>Messages</span>
+
+        <div class="col-md-12 mt-4">
+            <div class="card shadow-sm rounded-0">
+                <div class="card-header bg-transparent border-0">
+                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Student Information</h3>
                 </div>
-                <div class="drop-scroll msg-list-scroll">
-                    <ul class="list-box">
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">R</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Richard Miles </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item new-message">
-                                    <div class="list-left">
-                                        <span class="avatar">J</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Ruth C. Gault</span>
-                                        <span class="message-time">1 Aug</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">T</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Tarah Shropshire </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">M</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Mike Litorus</span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">C</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Catherine Manseau </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">D</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Domenic Houston </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">B</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Buster Wigton </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">R</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Rolland Webber </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">C</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author"> Claire Mapes </span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">M</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Melita Faucher</span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">J</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Jeffery Lalor</span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">L</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Loren Gatlin</span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="chat.html">
-                                <div class="list-item">
-                                    <div class="list-left">
-                                        <span class="avatar">T</span>
-                                    </div>
-                                    <div class="list-body">
-                                        <span class="message-author">Tarah Shropshire</span>
-                                        <span class="message-time">12:28 AM</span>
-                                        <div class="clearfix"></div>
-                                        <span class="message-content">Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="topnav-dropdown-footer">
-                    <a href="chat.html">See all messages</a>
+                <div class="card-body pt-0">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th width="30%">Photo</th>
+                                <td width="2%">:</td>
+                                <td>
+                                    @isset ($student->photo)
+                                        @if ($student->photo != '')
+                                                <img class="avatar" src="{{ asset('upload') }}/users/{{ $student->photo }}" height="100"
+                                                    alt="{{ $student->fname }}">
+                                            @else
+                                                <img class="rounded-circle" src="{{ asset('backend') }}/assets/img/user.jpg"
+                                                     height="100" alt="{{ $student->fname }}">
+                                            @endif
+                                    @endisset
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Name</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->name)
+                                    {{ $student->name }}
+                                @endisset
+                                    
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Roll</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->roll)    {{ $student->roll }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Class</th>
+                                <td width="2%">:</td>
+                                <td> <strong>
+                                @isset($student->class)    {{ 'Class '.$student->class }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Section</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->section)    {{ $student->section }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Shift </th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->shift)    {{ $student->shift }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Gender</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->gender)    {{ $student->gender }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Religion</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->religion)    {{ $student->religion }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Blood Group</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->blood_group)    {{ $student->blood_group }} @endisset
+                                </strong></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Nationality</th>
+                                <td width="2%">:</td>
+                                <td><strong>
+                                @isset($student->nationality)    {{ $student->nationality }} @endisset
+                                </strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        
     </div>
 @endsection

@@ -11,6 +11,7 @@ use App\Models\BookList;
 use App\Models\Notice;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use GuzzleHttp\RetryMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -380,7 +381,8 @@ class AdminController extends Controller
     public function parentProfile($id)
     {
         $parent = User::find($id);
-        return view('backend.parent.parent-profile', compact('parent'));
+        $student = User::find($parent->set_student);
+        return view('backend.parent.parent-profile', compact('parent','student'));
     }
 
     public function editProfile($id)
@@ -482,11 +484,63 @@ class AdminController extends Controller
         return redirect()->route('parent.all')->withIcon('success')->withMessege('Parent Added Successfully!');
     }
 
+
+    public function connectwithstudent(Request $request){
+        
+
+        return view('backend.connect-with-student');
+    }
+
+
+    public function selectStudentforConnect(Request $request){
+        
+        if($request->action == 'shift'){
+            return view('backend.template.select-class',)->render();
+        }
+        elseif($request->action == 'class'){
+            return view('backend.template.select-section',)->render();
+        }
+        elseif($request->action == 'section'){
+            $query = User::query();
+            $query->where('role','student');
+            $query->where('shift',$request->shift);
+            $query->where('class',$request->class);
+            $query->where('section',$request->section);
+            $query->orderBy('name','asc');
+            $students = $query->get();
+            return view('backend.template.select-student',compact('students'))->render();
+        }
+        elseif($request->action == 'student'){
+            $id = $request->student;
+            $query = User::query();
+            $query->where('role','gurdian');
+            $query->orderBy('name','asc');
+            $parents = $query->get();
+            return view('backend.template.select-parent',compact('parents','id'))->render();
+        }else{
+            DB::table('users')->where('id',$request->student)->update([
+                'set_student' => $request->parent,
+            ]);
+            DB::table('users')->where('id',$request->parent)->update([
+                'set_student' => $request->student,
+            ]);
+            $parent = User::find($request->parent);
+            $student = User::find($request->student);
+
+            return view('backend.template.student-parent',compact('parent','student'))->render();
+        }
+
+
+
+    }
+
+
     // Student 
     public function studentProfile($id)
     {
         $student = User::find($id);
-        return view('backend.student.student-profile', compact('student'));
+        $parent = User::find($student->set_student);
+        return view('backend.student.student-profile', compact('student','parent'));
     }
 
     public function allStudent(Request $request)
